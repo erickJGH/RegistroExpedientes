@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 using RegistroExpedientes.Areas.Identity;
 using RegistroExpedientes.Data;
 
@@ -19,8 +20,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddSingleton<WeatherForecastService>();
-
+builder.Services.AddScoped<DepartamentoBLL>();
+builder.Services.AddScoped<NotificationService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
