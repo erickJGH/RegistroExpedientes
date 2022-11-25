@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Radzen;
 using RegistroExpedientes.Areas.Identity;
 using RegistroExpedientes.Model;
-// using RegistroExpedientes.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-// using RegistroExpedientes.Data;
 using RegistroExpedientes.Model;
 
 public class DepartamentoBLL
