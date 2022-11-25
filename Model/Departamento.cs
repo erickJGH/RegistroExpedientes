@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RegistroExpedientes.Model
 {
@@ -9,7 +10,7 @@ namespace RegistroExpedientes.Model
         {
             Usuarios = new HashSet<Usuario>();
         }
-
+        [Key]
         public int IdDepartamento { get; set; }
         public string NombreDepartamento { get; set; } = null!;
 

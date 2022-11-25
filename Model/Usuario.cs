@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RegistroExpedientes.Model
 {
     public partial class Usuario
     {
+        [Key]
         public int IdUsuario { get; set; }
         public int IdDepartamento { get; set; }
         public string Nombre { get; set; } = null!;

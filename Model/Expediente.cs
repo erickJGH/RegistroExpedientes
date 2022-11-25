@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RegistroExpedientes.Model
 {
     public partial class Expediente
     {
+        [Key]
         public int IdExpediente { get; set; }
         public string DescripcionExpediente { get; set; } = null!;
         public string NombreBeneficiario { get; set; } = null!;
