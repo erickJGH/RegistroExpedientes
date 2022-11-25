@@ -12,6 +12,7 @@ namespace RegistroExpedientes.Model
         }
         [Key]
         public int IdDepartamento { get; set; }
+        [Required(ErrorMessage = "Favor introducir el departamento")]
         public string NombreDepartamento { get; set; } = null!;
 
         public virtual ICollection<Usuario> Usuarios { get; set; }

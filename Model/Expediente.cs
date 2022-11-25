@@ -8,6 +8,7 @@ namespace RegistroExpedientes.Model
     {
         [Key]
         public int IdExpediente { get; set; }
+       
         public string DescripcionExpediente { get; set; } = null!;
         public string NombreBeneficiario { get; set; } = null!;
         public string ApellidoBeneficiario { get; set; } = null!;
