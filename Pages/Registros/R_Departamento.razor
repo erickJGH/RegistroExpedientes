@@ -13,23 +13,6 @@
             <h3>Registro De Departamento</h3>
 
         </div>
-        <div class="card-body">
-            @*IdDepartamento*@
-            <div class="form-row align-items-center">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Id Departamento</label>
-                        <div class="input-group">
-                            <InputNumber @bind-Value="departamento.IdDepartamento" class="form-control col-4" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">
-                                    <i class="oi oi-magnifying-glass" /> Buscar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             @*NombreDepartamento*@
             <div class="form-group">
@@ -37,14 +20,6 @@
                 <InputText @bind-Value="departamento.NombreDepartamento" class="form-control" />
                 <ValidationMessage For="@(() => departamento.NombreDepartamento)" />
             </div>
-
-            @* Direccion
-                <div class="form-group">
-                    <label>Dirección</label>
-                    <InputText @bind-Value="departamento.Direccion" class="form-control" />
-                    <ValidationMessage For="@(() => departamento.Direccion)" />
-                </div> *@
-
 
         <div class="card-footer">
             <div class="form-group text-center" display: inline-block>
@@ -60,7 +35,7 @@
             </div>
         </div>
     </div>
-    </div>
+    
 </EditForm>
 
 @code
