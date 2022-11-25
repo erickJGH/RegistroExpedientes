@@ -1,13 +1,13 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using RegistroExpedientes.Data;
+// using RegistroExpedientes.Data;
 using RegistroExpedientes.Model;
 
 public class DepartamentoBLL
 {
-    private Contexto _contexto;
+    private ExpedientesContext _contexto;
 
-    public DepartamentoBLL(Contexto context)
+    public DepartamentoBLL(ExpedientesContext context)
     {
         _contexto = context;
     }
