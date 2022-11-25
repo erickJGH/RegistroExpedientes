@@ -19,6 +19,8 @@ namespace RegistroExpedientes.Model
         public DateTime PersonCreatedDate { get; set; }
         public DateTime? PersonLastLogin { get; set; }
 
+        //Esto es un comentario para ver si esta haciendo bien la sincronizacion
+
         public virtual Departamento IdDepartamentoNavigation { get; set; } = null!;
     }
 }
