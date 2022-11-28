@@ -22,6 +22,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<DepartamentoBLL>();
+builder.Services.AddScoped<UsuarioBLL>();
 builder.Services.AddScoped<NotificationService>();
 var app = builder.Build();
 

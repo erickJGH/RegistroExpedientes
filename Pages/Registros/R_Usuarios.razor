@@ -2,9 +2,65 @@
 @page "/Usuario/{IdUsuario:int}"
 @using Model
 
-@inject UsuarioBLL UsuarioBLL
+@inject UsuarioBLL usuarioBLL
 @inject NotificationService notificationService
 
+<EditForm Model="usuario" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <h3>Registro De usuarios</h3>
+
+        </div>
+
+            @*Nombre*@
+            <div class="form-group">
+                <label>Nombre</label>
+                <InputText @bind-Value="usuario.Nombre" class="form-control" />
+                <ValidationMessage For="@(() => usuario.Nombre)" />
+            </div>
+            @*Apellido*@
+            <div class="form-group">
+                <label>Apellido</label>
+                <InputText @bind-Value="usuario.Apellido" class="form-control" />
+                <ValidationMessage For="@(() => usuario.Apellido)" />
+            </div>
+            @*Cedula*@
+            <div class="form-group">
+                <label>Cedula</label>
+                <InputText @bind-Value="usuario.Cedula" class="form-control" />
+                <ValidationMessage For="@(() => usuario.Cedula)" />
+            </div>
+            @*Usuario*@
+            <div class="form-group">
+                <label>Usuario</label>
+                <InputText @bind-Value="usuario.Usuario1" class="form-control" />
+                <ValidationMessage For="@(() => usuario.Usuario1)" />
+            </div>
+            @*Clave*@
+            <div class="form-group">
+                <label>Clave</label>
+                <InputText type="password" @bind-Value="usuario.Clave" class="form-control" />
+                <ValidationMessage For="@(() => usuario.Clave)" />
+            </div>            
+
+        <div class="card-footer">
+            <div class="form-group text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                    <i class="oi oi-file" /> Nuevo
+                </button>
+                <button type="submit" class="btn btn-lg btn-success">
+                    <i class="oi oi-document" /> Guardar
+                </button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                    <i class="oi oi-trash" /> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
 
 @code
 {
@@ -17,7 +73,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        ListaUsuarios = await UsuarioBLL.GetList(t => true);
+        ListaUsuarios = await usuarioBLL.GetList(t => true);
 
         if (IdUsuario > 0)
         {
@@ -29,7 +85,7 @@
     {
         if (usuario.IdUsuario > 0)
         {
-            var encontrado = await UsuarioBLL.Buscar(usuario.IdUsuario);
+            var encontrado = await usuarioBLL.Buscar(usuario.IdUsuario);
 
             if (encontrado != null)
                 this.usuario = encontrado;
@@ -54,7 +110,7 @@
     public async Task Guardar()
     {
 
-        bool guardo = await UsuarioBLL.Guardar(usuario);
+        bool guardo = await usuarioBLL.Guardar(usuario);
 
         if (guardo)
         {
@@ -73,7 +129,7 @@
     {
         bool elimino;
 
-        elimino = await UsuarioBLL.Eliminacion(usuario);
+        elimino = await usuarioBLL.Eliminacion(usuario);
         if (elimino)
         {
             Nuevo();
