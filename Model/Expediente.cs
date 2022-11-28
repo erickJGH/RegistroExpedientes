@@ -28,6 +28,6 @@ namespace RegistroExpedientes.Model
         [Required(ErrorMessage ="Ingrese Estado")]
         public string Estado { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Fecha")]
-        public DateTime FechaDeEntrada { get; set; }
+        public DateTime FechaDeEntrada { get; set; } = DateTime.Now;
     }
 }
