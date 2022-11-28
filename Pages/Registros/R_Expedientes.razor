@@ -1,0 +1,101 @@
+@page "/Expediente"
+@page "/Expediente/{IdExpediente:int}"
+@using Model
+
+@inject ExpedienteBLL expedienteBLL
+@inject NotificationService notificationService
+
+@code
+{
+    [Parameter]
+    public int IdExpediente { get; set; }
+    public Expediente expediente { get; set; } = new Expediente();
+    public String mensaje { get; set; } = "";
+
+    private List<Expediente> ListaExpedientes { get; set; } = new List<Expediente>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        ListaExpedientes = await expedienteBLL.GetList(t => true);
+
+        if (IdExpediente > 0)
+        {
+            this.expediente.IdExpediente = IdExpediente;
+            await this.Buscar();
+        }
+    }
+    private async Task Buscar()
+    {
+        if (expediente.IdExpediente > 0)
+        {
+            var encontrado = await expedienteBLL.Buscar(expediente.IdExpediente);
+
+            if (encontrado != null)
+                this.expediente = encontrado;
+        }
+        else
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = "No Existe este expediente"
+            });
+        }
+    }
+
+    public void Nuevo()
+    {
+        mensaje = "";
+        expediente = new Expediente();
+    }
+
+    public async Task Guardar()
+    {
+
+        bool guardo = await expedienteBLL.Guardar(expediente);
+
+        if (guardo)
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
+
+            Nuevo();
+        }
+    }
+
+    public async Task Eliminar()
+    {
+        bool elimino;
+
+        elimino = await expedienteBLL.Eliminacion(expediente);
+        if (elimino)
+        {
+            Nuevo();
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Fue eliminado correctamente."
+            });
+        }
+        else
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "No fue Eliminado, intentar nuevamente o esta intentado eliminar sin datos."
+            });
+        }
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+}
