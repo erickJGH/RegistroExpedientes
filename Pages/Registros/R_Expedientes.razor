@@ -57,17 +57,17 @@
                 <ValidationMessage For="@(() => expediente.Monto)" />
             </div>      
             @*Estado*@
-                <div class="mb-3">
-                    <label>Estado</label>
-                       <Select class="form-select" @bind = "expediente.Estado">
-                        <option value="0" disabled> Seleccione uno </option>
-                        <option value= "1">Ayuda</option> 
-                        <option value= "2">Compra</option> 
-                        <option value= "3">Pago</option> 
-                    </Select>
-                    @* <InputText @bind-Value="expediente.Estado" class="form-control" /> *@
-                    <ValidationMessage For="@(() => expediente.Estado)" />
-                </div> 
+            <div class="mb-3">
+                <label>Estado</label>
+                <InputSelect class="form-select" @bind-Value="expediente.Estado">
+                    <option value="0" disabled> Seleccione uno </option>
+                    <option value="1">Ayuda</option> 
+                    <option value="2">Compra</option> 
+                    <option value="3">Pago</option> 
+                </InputSelect>
+                @* <InputText @bind-Value="usuario.Privilegio" class="form-control" /> *@
+                <ValidationMessage For="@(() => expediente.Estado)" />
+            </div>
                  @*Fecha*@
             <div class="form-group">
                 <label> Fecha Entrada</label>
