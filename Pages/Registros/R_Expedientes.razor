@@ -8,55 +8,46 @@
 <EditForm Model="expediente" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
-    <div class="card shadow-lg">
+     <div class="card">
         <div class="card-header">
-            <h3>Registro De usuarios</h3>
-
+            <h3>Registro de expedientes</h3>
         </div>
-
-            @*DescripcionExpediente*@
+        <div class="card-body">
+            @*Descripcion expediente*@
             <div class="form-group">
                 <label> Descripcion Expediente</label>
                 <InputText @bind-Value="expediente.DescripcionExpediente" class="form-control" />
                 <ValidationMessage For="@(() => expediente.DescripcionExpediente)" />
             </div>
+
             @*NombreBeneficiario*@
             <div class="form-group">
                 <label> Nombre Beneficiario</label>
                 <InputText @bind-Value="expediente.NombreBeneficiario" class="form-control" />
                 <ValidationMessage For="@(() => expediente.NombreBeneficiario)" />
             </div>
+
             @*CedulaoRnc*@
             <div class="form-group">
                 <label> Cedula o Rnc</label>
                 <InputText @bind-Value="expediente.CedulaoRnc" class="form-control" />
                 <ValidationMessage For="@(() => expediente.CedulaoRnc)" />
             </div>
+
             @*Telefono*@
             <div class="form-group">
                 <label> Telefono</label>
                 <InputText @bind-Value="expediente.Telefono" class="form-control" />
                 <ValidationMessage For="@(() => expediente.Telefono)" />
             </div> 
-            @* FormaDePago *@
-                @* <div class="mb-3">
-                    <label>Tipo Expediente</label>
-                    <InputSelect class="form-select" @bind-Value="expediente.TipoExpediente">
-                        <option value="0" disabled> Seleccione uno </option>
-                        <option value= "1">Ayuda</option> 
-                        <option value= "2">Compra</option> 
-                        <option value= "3">Pago</option> 
-                    </InputSelect>
-                    <InputText @bind-Value="expediente.TipoExpediente" class="form-control" />
-                    <ValidationMessage For="@(() => expediente.TipoExpediente)" />
-                </div> *@
+
             @*Monto*@
             <div class="form-group">
                 <label> Monto</label>
                 <InputNumber @bind-Value="expediente.Monto" class="form-control" />
                 <ValidationMessage For="@(() => expediente.Monto)" />
             </div>      
-            @*Estado*@
+           @*Estado*@
             <div class="mb-3">
                 <label>Estado</label>
                 <InputSelect class="form-select" @bind-Value="expediente.Estado">
@@ -68,13 +59,15 @@
                 @* <InputText @bind-Value="usuario.Privilegio" class="form-control" /> *@
                 <ValidationMessage For="@(() => expediente.Estado)" />
             </div>
-                 @*Fecha*@
+
+             @*Fecha*@
             <div class="form-group">
                 <label> Fecha Entrada</label>
                 <InputDate @bind-Value="expediente.FechaDeEntrada" class="form-control" />
                 <ValidationMessage For="@(() => expediente.FechaDeEntrada)" />
-            </div>       
-
+            </div>   
+        </div>
+    </div>      
 
         <div class="card-footer">
             <div class="form-group text-center" display: inline-block>
@@ -89,8 +82,6 @@
                 </button>
             </div>
         </div>
-    </div>
-
 </EditForm>
 
 @code
