@@ -4,9 +4,9 @@ using RegistroExpedientes.Model;
 
 public class DepartamentoBLL
 {
-    private ExpedientesContext _contexto;
+    private Contexto _contexto;
 
-    public DepartamentoBLL(ExpedientesContext context)
+    public DepartamentoBLL(Contexto context)
     {
         _contexto = context;
     }
@@ -16,19 +16,19 @@ public class DepartamentoBLL
         return await _contexto.Departamentos.AnyAsync(o => o.IdDepartamento == idDepartamento);
     }
 
-    private async Task<bool> Insertar(Departamento departamento)
+    private async Task<bool> Insertar(Departamentos departamento)
     {
         _contexto.Departamentos.Add(departamento);
         return await _contexto.SaveChangesAsync() > 0;
     }
 
-    private async Task<bool> Modificar(Departamento departamento)
+    private async Task<bool> Modificar(Departamentos departamento)
     {
         _contexto.Entry(departamento).State = EntityState.Modified;
         return await _contexto.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> Guardar(Departamento departamento)
+    public async Task<bool> Guardar(Departamentos departamento)
     {
         if (!await Existe(departamento.IdDepartamento))
             return await this.Insertar(departamento);
@@ -36,12 +36,12 @@ public class DepartamentoBLL
             return await this.Modificar(departamento);
     }
 
-    public async Task<bool> Eliminar(Departamento departamento)
+    public async Task<bool> Eliminar(Departamentos departamento)
     {
         _contexto.Entry(departamento).State = EntityState.Deleted;
         return await _contexto.SaveChangesAsync() > 0;
     }
-    public async Task<bool> Eliminacion(Departamento departamento)
+    public async Task<bool> Eliminacion(Departamentos departamento)
     {
         bool elimino;
         if (await Existe(departamento.IdDepartamento))
@@ -50,7 +50,7 @@ public class DepartamentoBLL
             return elimino = false;
     }
 
-    public async Task<Departamento?> Buscar(int IdDepartamento)
+    public async Task<Departamentos?> Buscar(int IdDepartamento)
     {
         return await _contexto.Departamentos
                 .Where(o => o.IdDepartamento == IdDepartamento)
@@ -58,7 +58,7 @@ public class DepartamentoBLL
                 .SingleOrDefaultAsync();
 
     }
-    public async Task<List<Departamento>> GetList(Expression<Func<Departamento, bool>> Criterio)
+    public async Task<List<Departamentos>> GetList(Expression<Func<Departamentos, bool>> Criterio)
     {
         return await _contexto.Departamentos
             .AsTracking()

@@ -4,9 +4,9 @@ using RegistroExpedientes.Model;
 
 public class ExpedienteBLL
 {
-    private ExpedientesContext _contexto;
+    private Contexto _contexto;
 
-    public ExpedienteBLL(ExpedientesContext context)
+    public ExpedienteBLL(Contexto context)
     {
         _contexto = context;
     }
@@ -16,19 +16,19 @@ public class ExpedienteBLL
         return await _contexto.Expedientes.AnyAsync(o => o.IdExpediente == idExpediente);
     }
 
-    private async Task<bool> Insertar(Expediente expediente)
+    private async Task<bool> Insertar(Expedientes expediente)
     {
         _contexto.Expedientes.Add(expediente);
         return await _contexto.SaveChangesAsync() > 0;
     }
 
-    private async Task<bool> Modificar(Expediente expediente)
+    private async Task<bool> Modificar(Expedientes expediente)
     {
         _contexto.Entry(expediente).State = EntityState.Modified;
         return await _contexto.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> Guardar(Expediente expediente)
+    public async Task<bool> Guardar(Expedientes expediente)
     {
         if (!await Existe(expediente.IdExpediente))
             return await this.Insertar(expediente);
@@ -36,12 +36,12 @@ public class ExpedienteBLL
             return await this.Modificar(expediente);
     }
 
-    public async Task<bool> Eliminar(Expediente expediente)
+    public async Task<bool> Eliminar(Expedientes expediente)
     {
         _contexto.Entry(expediente).State = EntityState.Deleted;
         return await _contexto.SaveChangesAsync() > 0;
     }
-    public async Task<bool> Eliminacion(Expediente expediente)
+    public async Task<bool> Eliminacion(Expedientes expediente)
     {
         bool elimino;
         if (await Existe(expediente.IdExpediente))
@@ -50,7 +50,7 @@ public class ExpedienteBLL
             return elimino = false;
     }
 
-    public async Task<Expediente?> Buscar(int IdExpediente)
+    public async Task<Expedientes?> Buscar(int IdExpediente)
     {
         return await _contexto.Expedientes
                 .Where(o => o.IdExpediente == IdExpediente)
@@ -58,7 +58,7 @@ public class ExpedienteBLL
                 .SingleOrDefaultAsync();
 
     }
-    public async Task<List<Expediente>> GetList(Expression<Func<Expediente, bool>> Criterio)
+    public async Task<List<Expedientes>> GetList(Expression<Func<Expedientes, bool>> Criterio)
     {
         return await _contexto.Expedientes
             .AsTracking()

@@ -44,10 +44,10 @@
 {
     [Parameter]
     public int IdDepartamento { get; set; }
-    public Departamento departamento { get; set; } = new Departamento();
+    public Departamentos departamento { get; set; } = new Departamentos();
     public String mensaje { get; set; } = "";
 
-    private List<Departamento> ListaDepartamento { get; set; } = new List<Departamento>();
+    private List<Departamentos> ListaDepartamento { get; set; } = new List<Departamentos>();
 
     protected async override Task OnInitializedAsync()
     {
@@ -82,7 +82,7 @@
     public void Nuevo()
     {
         mensaje = "";
-        departamento = new Departamento();
+        departamento = new Departamentos();
     }
 
     public async Task Guardar()

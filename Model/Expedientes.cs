@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistroExpedientes.Model
 {
-    public partial class Expediente
+    public partial class Expedientes
     {
         [Key]
         public int IdExpediente { get; set; }

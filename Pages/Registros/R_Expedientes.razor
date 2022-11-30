@@ -88,10 +88,10 @@
 {
     [Parameter]
     public int IdExpediente { get; set; }
-    public Expediente expediente { get; set; } = new Expediente();
+    public Expedientes expediente { get; set; } = new Expedientes();
     public String mensaje { get; set; } = "";
 
-    private List<Expediente> ListaExpedientes { get; set; } = new List<Expediente>();
+    private List<Expedientes> ListaExpedientes { get; set; } = new List<Expedientes>();
 
     protected async override Task OnInitializedAsync()
     {
@@ -126,7 +126,7 @@
     public void Nuevo()
     {
         mensaje = "";
-        expediente = new Expediente();
+        expediente = new Expedientes();
     }
 
     public async Task Guardar()

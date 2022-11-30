@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistroExpedientes.Model
 {
-    public partial class Departamento
+    public partial class Departamentos
     {
-        public Departamento()
+        public Departamentos()
         {
             Usuarios = new HashSet<Usuarios>();
         }

@@ -28,6 +28,6 @@ namespace RegistroExpedientes.Model
         public DateTime PersonCreatedDate { get; set; }
         [Required(ErrorMessage = "Ingrese Fecha")]
         public DateTime? PersonLastLogin { get; set; }
-        public virtual Departamento IdDepartamentoNavigation { get; set; } = null!;
+        public virtual Departamentos IdDepartamentoNavigation { get; set; } = null!;
     }
 }
