@@ -50,9 +50,14 @@
                 <ValidationMessage For="@(() => usuario.Clave)" />
             </div>
             @*Privilegio*@
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Privilegio</label>
-                <InputText @bind-Value="usuario.Privilegio" class="form-control" />
+                <InputSelect class="form-select" @bind-Value="usuario.Privilegio">
+                    <option value="0" disabled> Seleccione uno </option>
+                    <option value="1">Administrador</option> 
+                    <option value="2">Usuario</option> 
+                </InputSelect>
+                @* <InputText @bind-Value="usuario.Privilegio" class="form-control" /> *@
                 <ValidationMessage For="@(() => usuario.Privilegio)" />
             </div>
         </div>
