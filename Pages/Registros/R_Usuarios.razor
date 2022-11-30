@@ -2,7 +2,7 @@
 @page "/Usuario/{IdUsuario:int}"
 @using Model
 
-@inject UsuarioBLL usuarioBLL
+@inject UsuariosBLL usuariosBLL
 @inject NotificationService notificationService
 
 <EditForm Model="usuario" OnValidSubmit="Guardar">
@@ -54,10 +54,10 @@
                 <label>Privilegio</label>
                 <InputSelect class="form-select" @bind-Value="usuario.Privilegio">
                     <option value="0" disabled> Seleccione uno </option>
-                    <option value="1">Administrador</option> 
-                    <option value="2">Usuario</option> 
+                    <option value= "1">Administrador</option> 
+                    <option value= "2">Usuario</option> 
                 </InputSelect>
-                @* <InputText @bind-Value="usuario.Privilegio" class="form-control" /> *@
+                <InputText hidden @bind-Value="usuario.Privilegio" class="form-control" />
                 <ValidationMessage For="@(() => usuario.Privilegio)" />
             </div>
         </div>
@@ -82,14 +82,14 @@
 {
     [Parameter]
     public int IdUsuario { get; set; }
-    public Usuario usuario { get; set; } = new Usuario();
+    public Usuarios usuario { get; set; } = new Usuarios();
     public String mensaje { get; set; } = "";
 
-    private List<Usuario> ListaUsuarios { get; set; } = new List<Usuario>();
+    private List<Usuarios> ListaUsuarios { get; set; } = new List<Usuarios>();
 
     protected async override Task OnInitializedAsync()
     {
-        ListaUsuarios = await usuarioBLL.GetList(t => true);
+        ListaUsuarios = await usuariosBLL.GetList(t => true);
 
         if (IdUsuario > 0)
         {
@@ -97,11 +97,12 @@
             await this.Buscar();
         }
     }
+    
     private async Task Buscar()
     {
         if (usuario.IdUsuario > 0)
         {
-            var encontrado = await usuarioBLL.Buscar(usuario.IdUsuario);
+            var encontrado = await usuariosBLL.Buscar(usuario.IdUsuario);
 
             if (encontrado != null)
                 this.usuario = encontrado;
@@ -120,13 +121,13 @@
     public void Nuevo()
     {
         mensaje = "";
-        usuario = new Usuario();
+        usuario = new Usuarios();
     }
 
     public async Task Guardar()
     {
 
-        bool guardo = await usuarioBLL.Guardar(usuario);
+        bool guardo = await usuariosBLL.Guardar(usuario);
 
         if (guardo)
         {
@@ -145,7 +146,7 @@
     {
         bool elimino;
 
-        elimino = await usuarioBLL.Eliminacion(usuario);
+        elimino = await usuariosBLL.Eliminacion(usuario);
         if (elimino)
         {
             Nuevo();

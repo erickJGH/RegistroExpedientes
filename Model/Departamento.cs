@@ -8,13 +8,13 @@ namespace RegistroExpedientes.Model
     {
         public Departamento()
         {
-            Usuarios = new HashSet<Usuario>();
+            Usuarios = new HashSet<Usuarios>();
         }
         [Key]
         public int IdDepartamento { get; set; }
         [Required(ErrorMessage = "Favor introducir el departamento")]
         public string NombreDepartamento { get; set; } = null!;
 
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }

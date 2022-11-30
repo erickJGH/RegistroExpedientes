@@ -18,7 +18,7 @@ namespace RegistroExpedientes.Model
 
         public virtual DbSet<Departamento> Departamentos { get; set; } = null!;
         public virtual DbSet<Expediente> Expedientes { get; set; } = null!;
-        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
+        public virtual DbSet<Usuarios> Usuarios { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -75,7 +75,7 @@ namespace RegistroExpedientes.Model
                 entity.Property(e => e.TipoExpediente).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Usuario>(entity =>
+            modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
                     .HasName("PK__Usuario__645723A6BFF15BDC");
