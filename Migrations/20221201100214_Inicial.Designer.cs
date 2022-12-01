@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RegistroExpedientes.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221201090948_Inicial")]
+    [Migration("20221201100214_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
