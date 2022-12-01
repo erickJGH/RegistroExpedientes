@@ -16,7 +16,7 @@
             @*Descripcion expediente*@
             <div class="mb-3">
                 <label> Descripcion Expediente</label>
-                <InputText @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
+                <InputText  CssClass="e-small" @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
                 <ValidationMessage For="@(() => expediente.DescripcionExpediente)" />
             </div>
 
@@ -50,7 +50,7 @@
             @*Monto*@
             <div class="mb-3">
                 <label> Monto</label>
-                <InputNumber @bind-Value="expediente.Monto" class="form-control" placeholder="Ingrese su monto" />
+                <InputNumber  @bind-Value="expediente.Monto" class="form-control" placeholder="Ingrese su monto" />
                 <ValidationMessage For="@(() => expediente.Monto)" />
             </div>      
            @*Tipo*@
@@ -97,9 +97,10 @@
                 <button type="submit" class="btn btn-lg btn-success">
                     <i class="oi oi-document" /> Guardar
                 </button>
+                @* en caso de quieran eliminare absolutamente aqui esta el boton
                 <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
                     <i class="oi oi-trash" /> Eliminar
-                </button>
+                </button> *@
             </div>
         </div>
 </EditForm>
