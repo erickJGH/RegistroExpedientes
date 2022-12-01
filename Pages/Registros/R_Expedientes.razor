@@ -26,6 +26,12 @@
                 <InputText @bind-Value="expediente.NombreBeneficiario" class="form-control" />
                 <ValidationMessage For="@(() => expediente.NombreBeneficiario)" />
             </div>
+            @*ApellidoBeneficiario*@
+            <div class="form-group">
+                <label> Apellido Beneficiario</label>
+                <InputText @bind-Value="expediente.ApellidoBeneficiario" class="form-control" />
+                <ValidationMessage For="@(() => expediente.ApellidoBeneficiario)" />
+            </div>
 
             @*CedulaoRnc*@
             <div class="form-group">
@@ -47,17 +53,17 @@
                 <InputNumber @bind-Value="expediente.Monto" class="form-control" />
                 <ValidationMessage For="@(() => expediente.Monto)" />
             </div>      
-           @*Estado*@
+           @*Tipo*@
             <div class="mb-3">
-                <label>Estado</label>
-                <InputSelect class="form-select" @bind-Value="expediente.Estado">
+                <label>Tipo expediente</label>
+                <InputSelect class="form-select" @bind-Value="expediente.TipoExpediente">
                     <option value="0" disabled> Seleccione uno </option>
-                    <option value="1">Ayuda</option> 
-                    <option value="2">Compra</option> 
-                    <option value="3">Pago</option> 
+                    <option value="Ayuda">Ayuda</option> 
+                    <option value="Compra">Compra</option> 
+                    <option value="Pago">Pago</option> 
                 </InputSelect>
-                @* <InputText @bind-Value="usuario.Privilegio" class="form-control" /> *@
-                <ValidationMessage For="@(() => expediente.Estado)" />
+                <InputText  hidden @bind-Value="expediente.TipoExpediente" class="form-control" />
+                <ValidationMessage For="@(() => expediente.TipoExpediente)" />
             </div>
 
              @*Fecha*@
@@ -66,6 +72,19 @@
                 <InputDate @bind-Value="expediente.FechaDeEntrada" class="form-control" />
                 <ValidationMessage For="@(() => expediente.FechaDeEntrada)" />
             </div>   
+            @* Estado*@
+            <div class="mb-3">
+                <label>Tipo expediente</label>
+                <InputSelect class="form-select" @bind-Value="expediente.Estado">
+                    <option value="0" disabled> Seleccione uno </option>
+                    <option value="Activo">Activo</option> 
+                    <option value="Desactivado">Desactivado</option> 
+                </InputSelect>
+                <InputText  hidden @bind-Value="expediente.Estado" class="form-control" />
+                <ValidationMessage For="@(() => expediente.Estado)" />
+            </div>
+             
+              
         </div>
     </div>      
 

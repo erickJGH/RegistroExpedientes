@@ -54,8 +54,8 @@
                 <label>Privilegio</label>
                 <InputSelect class="form-select" @bind-Value="usuario.Privilegio">
                     <option value="0" disabled> Seleccione uno </option>
-                    <option value= "1">Administrador</option> 
-                    <option value= "2">Usuario</option> 
+                    <option value= "Administrador">Administrador</option> 
+                    <option value= "Usuario">Usuario</option> 
                 </InputSelect>
                 <InputText hidden @bind-Value="usuario.Privilegio" class="form-control" />
                 <ValidationMessage For="@(() => usuario.Privilegio)" />
@@ -97,7 +97,6 @@
             await this.Buscar();
         }
     }
-    
     private async Task Buscar()
     {
         if (usuario.IdUsuario > 0)

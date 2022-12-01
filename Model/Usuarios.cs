@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RegistroExpedientes.Model
 {
@@ -8,7 +9,6 @@ namespace RegistroExpedientes.Model
     {
         [Key]
         public int IdUsuario { get; set; }
-        [Required(ErrorMessage = "Ingrese Id Departamento")]
         public int IdDepartamento { get; set; }
         [Required(ErrorMessage = "Ingrese Nombre")]
         public string Nombre { get; set; } = null!;
@@ -24,10 +24,10 @@ namespace RegistroExpedientes.Model
         public string Privilegio { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Estado")]
         public bool Estado { get; set; }
-        [Required(ErrorMessage = "Ingrese Fecha")]
+        
         public DateTime PersonCreatedDate { get; set; }
-        [Required(ErrorMessage = "Ingrese Fecha")]
-        public DateTime? PersonLastLogin { get; set; }
-        public virtual Departamentos IdDepartamentoNavigation { get; set; } = null!;
+        
+        public DateTime PersonLastLogin { get; set; }
+        public virtual Departamentos IdDepartamentoNavigation { get; set; }
     }
 }
