@@ -14,46 +14,60 @@
         </div>
         <div class="card-body">
             @*Nombre*@
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Nombre</label>
-                <InputText @bind-Value="usuario.Nombre" class="form-control" />
+                <InputText @bind-Value="usuario.Nombre" class="form-control" placeholder="Ingrese su nombre"/>
                 <ValidationMessage For="@(() => usuario.Nombre)" />
+            </div>
+             @*Departamento*@
+            <div class="mb-3">
+                <label>Departamento</label>
+                <InputSelect class="form-select" @bind-Value="usuario.Departamento">
+                    <option value="" disabled selected>Seleccione Departamento</option>
+                    <option value="Computos">Computos</option> 
+                    <option value="Tesoreria">Tesoreria</option> 
+                    <option value="Presupuesto">Presupuesto</option> 
+                    <option value="Contraloria">Contraloria</option> 
+                    <option value="Compras">Compras</option> 
+                </InputSelect>
+                <InputText  hidden @bind-Value="usuario.Departamento" class="form-control" />
+                <ValidationMessage For="@(() => usuario.Departamento)" />
             </div>
 
             @*Apellido*@
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Apellido</label>
-                <InputText @bind-Value="usuario.Apellido" class="form-control" />
+                <InputText @bind-Value="usuario.Apellido" class="form-control" placeholder="Ingrese su apellido" />
                 <ValidationMessage For="@(() => usuario.Apellido)" />
             </div>
 
 
             @*Cedula*@
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Cedula</label>
-                <InputText @bind-Value="usuario.Cedula" class="form-control" />
+                <InputText @bind-Value="usuario.Cedula" class="form-control" placeholder="Ingrese su Cedula"/>
                 <ValidationMessage For="@(() => usuario.Cedula)" />
             </div>
 
 
             @*Usuario*@
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Usuario</label>
-                <InputText @bind-Value="usuario.Usuario1" class="form-control" />
+                <InputText @bind-Value="usuario.Usuario1" class="form-control" placeholder="Ingrese su usuario"/>
                 <ValidationMessage For="@(() => usuario.Usuario1)" />
             </div>
 
             @*Clave*@
-            <div class="form-group">
+            <div class="mb-3">
                 <label>Clave</label>
-                <InputText type="password" @bind-Value="usuario.Clave" class="form-control" />
+                <InputText type="password" @bind-Value="usuario.Clave" class="form-control" placeholder="Ingrese su Clave" />
                 <ValidationMessage For="@(() => usuario.Clave)" />
             </div>
             @*Privilegio*@
             <div class="mb-3">
                 <label>Privilegio</label>
                 <InputSelect class="form-select" @bind-Value="usuario.Privilegio">
-                    <option value="0" disabled> Seleccione uno </option>
+                    <option value="" disabled selected>Seleccione privilegio</option>
                     <option value= "Administrador">Administrador</option> 
                     <option value= "Usuario">Usuario</option> 
                 </InputSelect>
@@ -64,7 +78,7 @@
     </div>      
 
         <div class="card-footer">
-            <div class="form-group text-center" display: inline-block>
+            <div class="mb-3 text-center" display: inline-block>
                 <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
                     <i class="oi oi-file" /> Nuevo
                 </button>

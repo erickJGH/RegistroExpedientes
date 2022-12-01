@@ -21,23 +21,6 @@ namespace RegistroExpedientes.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("RegistroExpedientes.Model.Departamentos", b =>
-                {
-                    b.Property<int>("IdDepartamento")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdDepartamento"), 1L, 1);
-
-                    b.Property<string>("NombreDepartamento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdDepartamento");
-
-                    b.ToTable("Departamentos");
-                });
-
             modelBuilder.Entity("RegistroExpedientes.Model.Expedientes", b =>
                 {
                     b.Property<int>("IdExpediente")
@@ -105,14 +88,12 @@ namespace RegistroExpedientes.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Departamento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
-
-                    b.Property<int>("IdDepartamento")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdDepartamentoNavigationIdDepartamento")
-                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -121,8 +102,7 @@ namespace RegistroExpedientes.Migrations
                     b.Property<DateTime>("PersonCreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("PersonLastLogin")
-                        .IsRequired()
+                    b.Property<DateTime>("PersonLastLogin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Privilegio")
@@ -135,25 +115,7 @@ namespace RegistroExpedientes.Migrations
 
                     b.HasKey("IdUsuario");
 
-                    b.HasIndex("IdDepartamentoNavigationIdDepartamento");
-
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("RegistroExpedientes.Model.Usuarios", b =>
-                {
-                    b.HasOne("RegistroExpedientes.Model.Departamentos", "IdDepartamentoNavigation")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("IdDepartamentoNavigationIdDepartamento")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdDepartamentoNavigation");
-                });
-
-            modelBuilder.Entity("RegistroExpedientes.Model.Departamentos", b =>
-                {
-                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,7 +21,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddScoped<DepartamentoBLL>();
 builder.Services.AddScoped<UsuariosBLL>();
 builder.Services.AddScoped<ExpedienteBLL>();
 builder.Services.AddScoped<NotificationService>();

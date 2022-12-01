@@ -9,7 +9,7 @@ namespace RegistroExpedientes.Model
     {
         [Key]
         public int IdUsuario { get; set; }
-        public int IdDepartamento { get; set; }
+        public string Departamento { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Nombre")]
         public string Nombre { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Apellido")]
@@ -24,10 +24,9 @@ namespace RegistroExpedientes.Model
         public string Privilegio { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Estado")]
         public bool Estado { get; set; }
-        
+
         public DateTime PersonCreatedDate { get; set; }
-        
         public DateTime PersonLastLogin { get; set; }
-        public virtual Departamentos IdDepartamentoNavigation { get; set; }
+        
     }
 }

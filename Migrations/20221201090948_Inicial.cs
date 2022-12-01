@@ -10,19 +10,6 @@ namespace RegistroExpedientes.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Departamentos",
-                columns: table => new
-                {
-                    IdDepartamento = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreDepartamento = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Departamentos", x => x.IdDepartamento);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Expedientes",
                 columns: table => new
                 {
@@ -49,7 +36,7 @@ namespace RegistroExpedientes.Migrations
                 {
                     IdUsuario = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdDepartamento = table.Column<int>(type: "int", nullable: false),
+                    Departamento = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -58,24 +45,12 @@ namespace RegistroExpedientes.Migrations
                     Privilegio = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
                     PersonCreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PersonLastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdDepartamentoNavigationIdDepartamento = table.Column<int>(type: "int", nullable: false)
+                    PersonLastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.IdUsuario);
-                    table.ForeignKey(
-                        name: "FK_Usuarios_Departamentos_IdDepartamentoNavigationIdDepartamento",
-                        column: x => x.IdDepartamentoNavigationIdDepartamento,
-                        principalTable: "Departamentos",
-                        principalColumn: "IdDepartamento",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_IdDepartamentoNavigationIdDepartamento",
-                table: "Usuarios",
-                column: "IdDepartamentoNavigationIdDepartamento");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -85,9 +60,6 @@ namespace RegistroExpedientes.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "Departamentos");
         }
     }
 }
