@@ -16,7 +16,7 @@
             @*Descripcion expediente*@
             <div class="mb-3">
                 <label> Descripcion Expediente</label>
-                <InputText  CssClass="e-small" @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
+                <InputText @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
                 <ValidationMessage For="@(() => expediente.DescripcionExpediente)" />
             </div>
 
