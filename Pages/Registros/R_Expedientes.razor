@@ -16,8 +16,9 @@
             @*Descripcion expediente*@
             <div class="mb-3">
                 <label> Descripcion Expediente</label>
-                <InputText @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
+                <InputTextArea @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
                 <ValidationMessage For="@(() => expediente.DescripcionExpediente)" />
+                
             </div>
 
             @*NombreBeneficiario*@
