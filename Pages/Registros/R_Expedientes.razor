@@ -16,41 +16,41 @@
             @*Descripcion expediente*@
             <div class="mb-3">
                 <label> Descripcion Expediente</label>
-                <InputText @bind-Value="expediente.DescripcionExpediente" class="form-control" />
+                <InputText @bind-Value="expediente.DescripcionExpediente" class="form-control" placeholder="Ingrese descripcion"/>
                 <ValidationMessage For="@(() => expediente.DescripcionExpediente)" />
             </div>
 
             @*NombreBeneficiario*@
             <div class="mb-3 max">
                 <label> Nombre Beneficiario</label>
-                <InputText @bind-Value="expediente.NombreBeneficiario" class="form-control" />
+                <InputText @bind-Value="expediente.NombreBeneficiario" class="form-control" placeholder="Ingrese nombre beneficiario" />
                 <ValidationMessage For="@(() => expediente.NombreBeneficiario)" />
             </div>
             @*ApellidoBeneficiario*@
             <div class="mb-3">
                 <label> Apellido Beneficiario</label>
-                <InputText @bind-Value="expediente.ApellidoBeneficiario" class="form-control" />
+                <InputText @bind-Value="expediente.ApellidoBeneficiario" class="form-control" placeholder="Ingrese apellido beneficiario"/>
                 <ValidationMessage For="@(() => expediente.ApellidoBeneficiario)" />
             </div>
 
             @*CedulaoRnc*@
             <div class="mb-3">
                 <label> Cedula o Rnc</label>
-                <InputText @bind-Value="expediente.CedulaoRnc" class="form-control" />
+                <InputText @bind-Value="expediente.CedulaoRnc" class="form-control" placeholder="Ingrese su Cedula o Rnc" />
                 <ValidationMessage For="@(() => expediente.CedulaoRnc)" />
             </div>
 
             @*Telefono*@
             <div class="mb-3">
                 <label> Telefono</label>
-                <InputText @bind-Value="expediente.Telefono" class="form-control" />
+                <InputText @bind-Value="expediente.Telefono" class="form-control" placeholder="Ingrese su telefono"/>
                 <ValidationMessage For="@(() => expediente.Telefono)" />
             </div> 
 
             @*Monto*@
             <div class="mb-3">
                 <label> Monto</label>
-                <InputNumber @bind-Value="expediente.Monto" class="form-control" />
+                <InputNumber @bind-Value="expediente.Monto" class="form-control" placeholder="Ingrese su monto" />
                 <ValidationMessage For="@(() => expediente.Monto)" />
             </div>      
            @*Tipo*@
