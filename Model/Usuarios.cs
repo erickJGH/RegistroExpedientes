@@ -14,7 +14,8 @@ namespace RegistroExpedientes.Model
         public string Nombre { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Apellido")]
         public string Apellido { get; set; } = null!;
-        [Required(ErrorMessage = "Ingrese Cedula")]
+        [RegularExpression(@"^\d{3}-\d{7}-\d{1}$")]
+        [Required(ErrorMessage = "Favor de Ingresar cedula.Ejemplo 123-1234567-8")]
         public string Cedula { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Usuario")]
         public string Usuario1 { get; set; } = null!;
