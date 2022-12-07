@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RegistroExpedientes.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221205154941_Inicial")]
+    [Migration("20221207083928_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,6 +108,10 @@ namespace RegistroExpedientes.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Privilegio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -44,6 +44,7 @@ namespace RegistroExpedientes.Migrations
                     Clave = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Privilegio = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PersonCreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PersonLastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

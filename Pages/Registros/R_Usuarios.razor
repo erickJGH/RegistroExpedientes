@@ -8,7 +8,7 @@
 <EditForm Model="usuario" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
-     <div class="card">
+    <div class="card">
         <div class="card-header">
             <h3>Registro de usuarios</h3>
         </div>
@@ -16,7 +16,7 @@
             @*Nombre*@
             <div class="mb-3">
                 <label>Nombre</label>
-                <InputText @bind-Value="usuario.Nombre" class="form-control" placeholder="Ingrese su nombre"/>
+                <InputText @bind-Value="usuario.Nombre" class="form-control" placeholder="Ingrese su nombre" />
                 <ValidationMessage For="@(() => usuario.Nombre)" />
             </div>
 
@@ -26,27 +26,34 @@
                 <InputText @bind-Value="usuario.Apellido" class="form-control" placeholder="Ingrese su apellido" />
                 <ValidationMessage For="@(() => usuario.Apellido)" />
             </div>
+            @*Telefono*@
+            <div class="mb-3">
+                <label>Telefono</label>
+                <InputText @bind-Value="usuario.Telefono" class="form-control" placeholder="Ingrese su Telefono" />
+                <ValidationMessage For="@(() => usuario.Telefono)" />
+            </div>
 
-             @*Departamento*@
+            @*Departamento*@
             <div class="mb-3">
                 <label>Departamento</label>
                 <InputSelect class="form-select" @bind-Value="usuario.Departamento">
                     <option value="" disabled selected>Seleccione Departamento</option>
-                    <option value="Computos">Computos</option> 
-                    <option value="Tesoreria">Tesoreria</option> 
-                    <option value="Presupuesto">Presupuesto</option> 
-                    <option value="Contraloria">Contraloria</option> 
-                    <option value="Auditoria">Auditoria</option> 
-                    <option value="Compras">Compras</option> 
+                    <option value="Computos">Computos</option>
+                    <option value="Tesoreria">Tesoreria</option>
+                    <option value="Presupuesto">Presupuesto</option>
+                    <option value="Contraloria">Contraloria</option>
+                    <option value="Auditoria">Auditoria</option>
+                    <option value="Compras">Compras</option>
                 </InputSelect>
-                <InputText  hidden @bind-Value="usuario.Departamento" class="form-control" />
+                <InputText hidden @bind-Value="usuario.Departamento" class="form-control" />
                 <ValidationMessage For="@(() => usuario.Departamento)" />
             </div>
 
             @*Cedula*@
             <div class="mb-3">
                 <label>Cedula</label>
-                <InputText @bind-Value="usuario.Cedula" class="form-control" placeholder="Ingrese su Cedula"/>
+                <InputText @bind-Value="usuario.Cedula" class="form-control"
+                    placeholder="Ingrese su Cedula Ejemplo 123-1234567-1" />
                 <ValidationMessage For="@(() => usuario.Cedula)" />
             </div>
 
@@ -54,14 +61,15 @@
             @*Usuario*@
             <div class="mb-3">
                 <label>Usuario</label>
-                <InputText @bind-Value="usuario.Usuario1" class="form-control" placeholder="Ingrese su usuario"/>
+                <InputText @bind-Value="usuario.Usuario1" class="form-control" placeholder="Ingrese su usuario" />
                 <ValidationMessage For="@(() => usuario.Usuario1)" />
             </div>
 
             @*Clave*@
             <div class="mb-3">
                 <label>Clave</label>
-                <InputText type="password" @bind-Value="usuario.Clave" class="form-control" placeholder="Ingrese su Clave" />
+                <InputText type="password" @bind-Value="usuario.Clave" class="form-control"
+                    placeholder="Ingrese su Clave" />
                 <ValidationMessage For="@(() => usuario.Clave)" />
             </div>
             @*Privilegio*@
@@ -69,29 +77,29 @@
                 <label>Privilegio</label>
                 <InputSelect class="form-select" @bind-Value="usuario.Privilegio">
                     <option value="" disabled selected>Seleccione privilegio</option>
-                    <option value= "Administrador">Administrador</option> 
-                    <option value= "Usuario">Usuario</option> 
+                    <option value="Administrador">Administrador</option>
+                    <option value="Usuario">Usuario</option>
                 </InputSelect>
                 <InputText hidden @bind-Value="usuario.Privilegio" class="form-control" />
                 <ValidationMessage For="@(() => usuario.Privilegio)" />
             </div>
         </div>
-    </div>      
+    </div>
 
-        <div class="card-footer">
-            <div class="mb-3 text-center" display: inline-block>
-                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                    <i class="oi oi-file" /> Nuevo
-                </button>
-                <button type="submit" class="btn btn-lg btn-success">
-                    <i class="oi oi-document" /> Guardar
-                </button>
-                 @* en caso de quieran eliminare absolutamente aqui esta el boton
-                    <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                        <i class="oi oi-trash" /> Eliminar
-                    </button> *@
-            </div>
+    <div class="card-footer">
+        <div class="mb-3 text-center" display: inline-block>
+            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                <i class="oi oi-file" /> Nuevo
+            </button>
+            <button type="submit" class="btn btn-lg btn-success">
+                <i class="oi oi-document" /> Guardar
+            </button>
+            @* en caso de quieran eliminare absolutamente aqui esta el boton
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                <i class="oi oi-trash" /> Eliminar
+                </button> *@
         </div>
+    </div>
 </EditForm>
 
 @code
@@ -140,20 +148,44 @@
 
     public async Task Guardar()
     {
-
-        bool guardo = await usuariosBLL.Guardar(usuario);
-
-        if (guardo)
+        @* bool guardo = await usuariosBLL.Guardar(usuario); *@
+        if (await CedulaExiste())
         {
             ShowNotification(
             new NotificationMessage
             {
-                Severity = NotificationSeverity.Success,
-                Summary = "Guardado correctamente"
+                Severity = NotificationSeverity.Error,
+                Summary = "Esta Cedula ya existe."
             });
+            return;
+        }
 
+         if (usuario.IdUsuario == 0)
+        {
+            await usuariosBLL.Guardar(usuario);
+            ShowNotification(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Guardado correctamente"
+                });
             Nuevo();
         }
+        @* else
+        {
+            if (guardo)
+            {
+                ShowNotification(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Guardado correctamente"
+                });
+
+                Nuevo();
+            }
+        } *@
+
     }
 
     public async Task Eliminar()
@@ -182,26 +214,24 @@
         }
     }
 
-    public async Task<bool> Cedula()
+    public async Task<bool> CedulaExiste()
     {
         bool paso = false;
-        var Listado = new List<Usuarios>();
+        ListaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
 
-        Listado = await usuariosBLL.GetList(p => p.Cedula == usuario.Cedula);
-
-        if (Listado.Count == 1)
+        if (ListaUsuarios.Count == 1)
         {
             if (usuario.IdUsuario == 0)
                 return paso = true;
 
             Usuarios UsuarioTemporal = new Usuarios();
-            UsuarioTemporal = Listado[0];
+            UsuarioTemporal = ListaUsuarios[0];
             if (UsuarioTemporal.IdUsuario != usuario.IdUsuario)
             {
                 paso = true;
             }
         }
-        else if (Listado.Count > 1)
+        else if (ListaUsuarios.Count > 1)
         {
             paso = true;
         }

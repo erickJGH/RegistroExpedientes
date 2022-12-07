@@ -109,6 +109,10 @@ namespace RegistroExpedientes.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Usuario1")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
