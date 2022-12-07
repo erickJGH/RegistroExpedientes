@@ -155,36 +155,36 @@
             new NotificationMessage
             {
                 Severity = NotificationSeverity.Error,
-                Summary = "Esta Cedula ya existe."
+                Summary = "Esta Cedula ya existe intente otra."
             });
             return;
         }
 
-         if (usuario.IdUsuario == 0)
+        if (usuario.IdUsuario == 0)
         {
             await usuariosBLL.Guardar(usuario);
             ShowNotification(
-                new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Guardado correctamente"
-                });
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
             Nuevo();
         }
         @* else
-        {
+            {
             if (guardo)
             {
-                ShowNotification(
-                new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Guardado correctamente"
-                });
+            ShowNotification(
+            new NotificationMessage
+            {
+            Severity = NotificationSeverity.Success,
+            Summary = "Guardado correctamente"
+            });
 
-                Nuevo();
+            Nuevo();
             }
-        } *@
+            } *@
 
     }
 
