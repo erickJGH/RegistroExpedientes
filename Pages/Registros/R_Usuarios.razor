@@ -100,7 +100,6 @@
     public int IdUsuario { get; set; }
     public Usuarios usuario { get; set; } = new Usuarios();
     public String mensaje { get; set; } = "";
-
     private List<Usuarios> ListaUsuarios { get; set; } = new List<Usuarios>();
 
     protected async override Task OnInitializedAsync()
@@ -181,6 +180,33 @@
                 Summary = "No fue Eliminado, intentar nuevamente o esta intentado eliminar sin datos."
             });
         }
+    }
+
+    public async Task<bool> Cedula()
+    {
+        bool paso = false;
+        var Listado = new List<Usuarios>();
+
+        Listado = await usuariosBLL.GetList(p => p.Cedula == usuario.Cedula);
+
+        if (Listado.Count == 1)
+        {
+            if (usuario.IdUsuario == 0)
+                return paso = true;
+
+            Usuarios UsuarioTemporal = new Usuarios();
+            UsuarioTemporal = Listado[0];
+            if (UsuarioTemporal.IdUsuario != usuario.IdUsuario)
+            {
+                paso = true;
+            }
+        }
+        else if (Listado.Count > 1)
+        {
+            paso = true;
+        }
+
+        return paso;
     }
 
     void ShowNotification(NotificationMessage message)
