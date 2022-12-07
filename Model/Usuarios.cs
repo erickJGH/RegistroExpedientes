@@ -33,7 +33,7 @@ namespace RegistroExpedientes.Model
         public string Telefono { get; set; } = null!;
 
 
-        public DateTime PersonCreatedDate { get; set; }
+        public DateTime PersonCreatedDate { get; set; } = DateTime.Now;
         public DateTime PersonLastLogin { get; set; }
 
     }
