@@ -14,7 +14,7 @@ namespace RegistroExpedientes.Model
         public string NombreBeneficiario { get; set; } = null!;
         [Required(ErrorMessage ="Ingrese Apellido Beneficiario")]
         public string ApellidoBeneficiario { get; set; } = null!;
-        [RegularExpression(@"^\d{3}-\d{7}-\d{1}$")]
+        [RegularExpression(@"^\d{3}-\d{5,7}-\d{1}$")]
         [Required(ErrorMessage ="Ingrese Cedula")]
         public string CedulaoRnc { get; set; } = null!;
         [RegularExpression(@"^\d{3}-\d{3}-\d{4}$")]
