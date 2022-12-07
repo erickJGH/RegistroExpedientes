@@ -25,7 +25,7 @@ namespace RegistroExpedientes.Model
         public string TipoExpediente { get; set; } = null!;
         [Required(ErrorMessage ="Ingrese Monto")]
         [Range(1,15000000)]
-        public decimal Monto { get; set; }
+        public decimal? Monto { get; set; } 
         [Required(ErrorMessage ="Ingrese Estado")]
         public string Estado { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Fecha")]
