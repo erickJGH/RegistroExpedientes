@@ -148,7 +148,6 @@
 
     public async Task Guardar()
     {
-        @* bool guardo = await usuariosBLL.Guardar(usuario); *@
         if (await CedulaExiste())
         {
             ShowNotification(
@@ -171,21 +170,6 @@
             });
             Nuevo();
         }
-        @* else
-            {
-            if (guardo)
-            {
-            ShowNotification(
-            new NotificationMessage
-            {
-            Severity = NotificationSeverity.Success,
-            Summary = "Guardado correctamente"
-            });
-
-            Nuevo();
-            }
-            } *@
-
     }
 
     public async Task Eliminar()
