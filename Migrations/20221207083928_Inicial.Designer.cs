@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace RegistroExpedientes.Migrations
 {
-    [DbContext(typeof(Contexto))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20221207083928_Inicial")]
     partial class Inicial
     {

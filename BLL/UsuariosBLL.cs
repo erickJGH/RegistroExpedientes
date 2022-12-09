@@ -4,9 +4,9 @@ using RegistroExpedientes.Model;
 
 public class UsuariosBLL
 {
-    private Contexto _contexto;
+    private ApplicationDbContext _contexto;
 
-    public UsuariosBLL(Contexto context)
+    public UsuariosBLL(ApplicationDbContext context)
     {
         _contexto = context;
     }

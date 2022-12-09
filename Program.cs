@@ -13,17 +13,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<Contexto>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<Contexto>();
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<UsuariosBLL>();
 builder.Services.AddScoped<ExpedienteBLL>();
 builder.Services.AddScoped<NotificationService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

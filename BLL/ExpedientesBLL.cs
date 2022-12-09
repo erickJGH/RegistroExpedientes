@@ -4,9 +4,9 @@ using RegistroExpedientes.Model;
 
 public class ExpedienteBLL
 {
-    private Contexto _contexto;
+    private ApplicationDbContext _contexto;
 
-    public ExpedienteBLL(Contexto context)
+    public ExpedienteBLL(ApplicationDbContext context)
     {
         _contexto = context;
     }
