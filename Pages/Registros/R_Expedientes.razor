@@ -165,19 +165,20 @@
                 Severity = NotificationSeverity.Error,
                 Summary = "Esta Cedula ya existe intente otra."
             });
-            return;
+            
         }
-
-        if (expediente.IdExpediente == 0)
+        else if (expediente.IdExpediente == 0)
         {
-            await expedienteBLL.Guardar(expediente);
-            ShowNotification(
-            new NotificationMessage
             {
-                Severity = NotificationSeverity.Success,
-                Summary = "Guardado correctamente"
-            });
-            Nuevo();
+                await expedienteBLL.Guardar(expediente);
+                ShowNotification(
+                new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Guardado correctamente"
+                });
+                Nuevo();
+            }
         }
     }
     public async Task Eliminar()
