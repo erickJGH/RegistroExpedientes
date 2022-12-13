@@ -1,0 +1,212 @@
+@page "/Consulta_expediente"
+@using Model
+@inject ExpedienteBLL ExpedienteBLL;
+
+<EditForm Model="Informacion">
+    <DataAnnotationsValidator />
+    <div class="card-body bg-white">
+    <div class="card-header">
+        <h4>Consulta de Expedientes</h4>
+    </div>
+
+        <div class="input-group">
+            @*Fecha*@
+            <div class="col-2">
+                <label> Desde</label>
+                <div class="mb-3">
+                    <InputDate @bind-Value="FechaDesde" class="form-control" />
+                    <ValidationMessage For="@(() => FechaDesde)" />
+                </div>
+            </div>
+            <div class="col-2 mx-3">
+                <label> Hasta</label>
+                <div class="mb-3">
+                    <InputDate @bind-Value="FechaHasta" class="form-control" />
+                    <ValidationMessage For="@(() => FechaHasta)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2 mx-3">
+            <div class="row">
+                <select class="form-select" @bind="Filtro">
+                    <option disabled selected>Seleccione</option>
+                    <option value="Todo">Todo</option>
+                    <option value="IdExpediente">Id Expediente</option>
+                    <option value="DescripcionExpediente">Descripcion Expediente</option>
+                    <option value="NombreBeneficiario">Nombre Beneficiario</option>
+                    <option value="ApellidoBeneficiario">Apellido Beneficiario</option>
+                    <option value="CedulaoRnc">Cedula o Rnc</option>
+                    <option value="TipoExpediente">Tipo Expediente</option>
+                    <option value="Monto">Monto</option>
+                    <option value="Estado">Estado</option>
+                    <option value="FechaDeEntrada">Fecha Entrada</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group d-flex align-items-end">
+                <label>Buscar</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" @bind="Criterio" />
+                    <button type="button" class="btn btn-info" @onclick="Buscar">
+                        <i class="oi oi-magnifying-glass" /> Buscar</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover mt-4 table-striped" style="cursor: pointer;">
+            <thead class="thead-green">
+                <tr class="table-info">
+                    <th>IdExpediente</th>
+                    <th>Descripcion Expediente</th>
+                    <th>Nombre Beneficiario</th>
+                    <th>Apellido Beneficiario</th>
+                    <th>Cedula o Rnc</th>
+                    <th>Tipo Expediente</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Fecha Entrada</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Informacion)
+                {
+                    <tr>
+                        <td>@item.IdExpediente</td>
+                        <td>@item.DescripcionExpediente</td>
+                        <td>@item.NombreBeneficiario</td>
+                        <td>@item.ApellidoBeneficiario</td>
+                        <td>@item.CedulaoRnc</td>
+                        <td>@item.TipoExpediente</td>
+                        <td>@item.Monto</td>
+                        <td>@item.Estado</td>
+                        <td>@item.FechaDeEntrada</td>
+                        <td><a href="expediente/@item.IdExpediente">Ver</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h6>Expedientes: @Informacion.Count()</h6>
+    </div>
+
+</EditForm>
+
+@code {
+
+    public Expedientes expedientes { set; get; } = new Expedientes();
+    public string? Filtro { get; set; }
+    public string? Criterio { get; set; }
+    public DateTime FechaDesde { get; set; }
+    public DateTime FechaHasta { get; set; } = DateTime.Now;
+    public List<Expedientes> Informacion { get; set; } = new List<Expedientes>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+    public async Task Buscar()
+    {
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+                case "Todo":
+                    Informacion = await ExpedienteBLL.GetList(e => true);
+                    break;
+                case "IdExpediente":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => o.IdExpediente.ToString() == (Criterio));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "DescripcionExpediente":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => o.DescripcionExpediente.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "NombreBeneficiario":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(e => e.NombreBeneficiario.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "ApellidoBeneficiario":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(e => e.ApellidoBeneficiario.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "CedulaoRnc":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(e => e.CedulaoRnc.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "TipoExpediente":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(e => e.TipoExpediente.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "Monto":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(e => e.Monto.ToString().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "Estado":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(e => e.Estado.ToLower().Contains(Criterio.ToLower()));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+                case "FechaDeEntrada":
+                    if (Criterio != null)
+                    {
+                        Informacion = await ExpedienteBLL.GetList(x => (x.FechaDeEntrada >= FechaDesde) && (x.FechaDeEntrada <= FechaHasta));
+                    }
+                    else
+                    {
+                        Informacion = await ExpedienteBLL.GetList(o => true);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            Informacion = await ExpedienteBLL.GetList(o => true);
+        }
+    }
+}
