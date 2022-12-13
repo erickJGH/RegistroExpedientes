@@ -4,7 +4,6 @@ using RegistroExpedientes.Model;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-    
     public DbSet<Expedientes> Expedientes { get; set; }
     public DbSet<Usuarios> Usuarios { get; set; }
 
@@ -12,6 +11,4 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
-    
-
 }
