@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RegistroExpedientes.Model
 {
@@ -31,8 +33,6 @@ namespace RegistroExpedientes.Model
         [Phone(ErrorMessage = "Favor de ingresar correctamente el numero Telefonico.Ejemplo 123-123-1234")]
         [Required(ErrorMessage = "Favor introducir su telefono.")]
         public string Telefono { get; set; } = null!;
-
-
         public DateTime PersonCreatedDate { get; set; } = DateTime.Now;
         public DateTime PersonLastLogin { get; set; }
 
