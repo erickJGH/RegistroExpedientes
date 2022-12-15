@@ -143,7 +143,7 @@
             ShowNotification(
             new NotificationMessage
             {
-                Severity = NotificationSeverity.Warning,
+                Severity = NotificationSeverity.Error,
                 Summary = "No Existe este expediente"
             });
         }
@@ -165,7 +165,6 @@
                 Severity = NotificationSeverity.Error,
                 Summary = "Esta Cedula ya existe intente otra."
             });
-            
         }
         else if (expediente.IdExpediente == 0)
         {
@@ -175,7 +174,7 @@
                 new NotificationMessage
                 {
                     Severity = NotificationSeverity.Success,
-                    Summary = "Guardado correctamente"
+                    Summary = "Guardado correctamente."
                 });
                 Nuevo();
             }
