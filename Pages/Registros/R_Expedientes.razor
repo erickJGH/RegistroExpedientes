@@ -1,6 +1,8 @@
 @page "/Expediente"
 @page "/Expediente/{IdExpediente:int}"
+@using Microsoft.AspNetCore.Mvc
 @using Model
+@attribute [Authorize]
 
 @inject ExpedienteBLL expedienteBLL
 @inject NotificationService notificationService
@@ -112,6 +114,7 @@
 
 @code
 {
+
     [Parameter]
     public int IdExpediente { get; set; }
     public Expedientes expediente { get; set; } = new Expedientes();
@@ -129,6 +132,8 @@
             await this.Buscar();
         }
     }
+    
+
     private async Task Buscar()
     {
         if (expediente.IdExpediente > 0)

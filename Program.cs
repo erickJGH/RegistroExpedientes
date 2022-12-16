@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Radzen;
 using RegistroExpedientes.Areas.Identity;
@@ -25,6 +27,7 @@ builder.Services.AddScoped<UsuariosBLL>();
 builder.Services.AddScoped<ExpedienteBLL>();
 builder.Services.AddScoped<NotificationService>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +41,9 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+
 
 app.UseHttpsRedirection();
 

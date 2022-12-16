@@ -1,6 +1,7 @@
 @page "/Usuario"
 @page "/Usuario/{IdUsuario:int}"
 @using Model
+@attribute [Authorize] 
 
 @inject UsuariosBLL usuariosBLL
 @inject NotificationService notificationService
@@ -105,6 +106,7 @@
 @code
 {
     [Parameter]
+
     public int IdUsuario { get; set; }
     public Usuarios usuario { get; set; } = new Usuarios();
     public String mensaje { get; set; } = "";

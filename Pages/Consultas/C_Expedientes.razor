@@ -1,6 +1,8 @@
 @page "/Consulta_expediente"
 @using Model
 @inject ExpedienteBLL ExpedienteBLL;
+@attribute [Authorize]
+
 
 <EditForm Model="Informacion">
     <DataAnnotationsValidator />
