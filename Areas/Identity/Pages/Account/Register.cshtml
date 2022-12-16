@@ -4,12 +4,11 @@
     ViewData["Title"] = "Registro";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row" style="width: 80%;margin: 0 auto;">
-    <div class="col-md-4" style="width: 80%;margin: 0 auto;" >
+<h1 class="ClaseTitulos" >@ViewData["Title"]</h1>
+<div class="row CentrarDiv">
+    <div class="col-md-4 CentrarDiv">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Crear una nueva cuenta </h2>
+            <h2 style="font-family: 'Time New Roman', Times, serif; font-size: 35px; line-height: 1.5; text-align: justify;text-align: center;" >Crear una nueva cuenta </h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
