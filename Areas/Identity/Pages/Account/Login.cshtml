@@ -5,22 +5,27 @@
     ViewData["Title"] = "Iniciar Sesion";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
+<h1
+    style="font-family: 'Time New Roman', Times, serif;font-size: 40px;line-height: 1.5;text-align: justify;text-align: center;">
+    @ViewData["Title"]</h1>
+<div class="row" style="width: 80%;margin: 0 auto;">
+    <div class="col-md-4" style="width: 80%;margin: 0 auto;">
         <section>
             <form id="account" method="post">
-                <h2>Use su cuenta para hacer login</h2>
+                <h2
+                    style="font-family: 'Time New Roman', Times, serif;font-size: 35px;line-height: 1.5;text-align: justify;text-align: center;">
+                    Use su cuenta para hacer login</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Input.Email" class="form-label"></label>
+                    <label asp-for="Input.Email" class="form-label">Ingrese email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <label asp-for="Input.Password" class="form-label"></label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password"
+                        aria-required="true" />
+                    <label asp-for="Input.Password" class="form-label">Ingrese Contraseña</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div>
@@ -31,19 +36,16 @@
                         </label>
                     </div>
                 </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                <div style="width: 80%;margin: 0 auto;">
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Iniciar sesion</button>
                 </div>
-                <div>
+                <div style="width: 28%;margin: 0 auto;">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Olvide mi contraseña?</a>
                     </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+                    @* <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrarme</a>
+                    </p> *@
                 </div>
             </form>
         </section>
@@ -51,5 +53,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
