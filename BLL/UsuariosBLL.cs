@@ -18,14 +18,40 @@ public class UsuariosBLL
 
     private async Task<bool> Insertar(Usuarios usuario)
     {
-        _contexto.Usuarios.Add(usuario);
-        return await _contexto.SaveChangesAsync() > 0;
+        using (var transaction = _contexto.Database.BeginTransaction())
+        {
+            try
+            {
+                _contexto.Usuarios.Add(usuario);
+                var result = await _contexto.SaveChangesAsync();
+                transaction.Commit();
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 
     private async Task<bool> Modificar(Usuarios usuario)
     {
-        _contexto.Entry(usuario).State = EntityState.Modified;
-        return await _contexto.SaveChangesAsync() > 0;
+        using (var transaction = _contexto.Database.BeginTransaction())
+        {
+            try
+            {
+                _contexto.Entry(usuario).State = EntityState.Modified;
+                var result = await _contexto.SaveChangesAsync();
+                transaction.Commit();
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 
     public async Task<bool> Guardar(Usuarios usuario)
@@ -38,9 +64,23 @@ public class UsuariosBLL
 
     public async Task<bool> Eliminar(Usuarios usuario)
     {
-        _contexto.Entry(usuario).State = EntityState.Deleted;
-        return await _contexto.SaveChangesAsync() > 0;
+        using (var transaction = _contexto.Database.BeginTransaction())
+        {
+            try
+            {
+                _contexto.Entry(usuario).State = EntityState.Deleted;
+                var result = await _contexto.SaveChangesAsync();
+                transaction.Commit();
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
+
     public async Task<bool> Eliminacion(Usuarios usuario)
     {
         bool elimino;
@@ -52,19 +92,31 @@ public class UsuariosBLL
 
     public async Task<Usuarios?> Buscar(int IdUsuario)
     {
-        return await _contexto.Usuarios
-                .Where(o => o.IdUsuario == IdUsuario)
-                .AsTracking()
-                .SingleOrDefaultAsync();
-
+        return await _contexto.Usuarios.FindAsync(IdUsuario);
     }
+
     public async Task<List<Usuarios>> GetList(Expression<Func<Usuarios, bool>> Criterio)
     {
+        return await _contexto.Usuarios.AsNoTracking().Where(Criterio).ToListAsync();
+    }
+    // public async Task<List<Usuarios>> GetList(Expression<Func<Usuarios, bool>> Criterio)
+    // {
+    //     return await _contexto.Usuarios
+    //         .AsNoTracking()
+    //         .Where(Criterio)
+    //         .ToListAsync();
+    // }
+
+    public async Task<List<Usuarios>> GetPagedList(int pageSize, int pageNumber, Expression<Func<Usuarios, bool>> Criterio)
+    {
         return await _contexto.Usuarios
-            .AsTracking()
+            .AsNoTracking()
             .Where(Criterio)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
     }
-
 }
+
+
 
