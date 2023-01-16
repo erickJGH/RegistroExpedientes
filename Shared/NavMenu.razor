@@ -1,39 +1,40 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Registro Expedientes</a>
+        <a class="navbar-brand" href="">Registros</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
-
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Usuario">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Usuario
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Expediente">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Expediente
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Consulta_expediente">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Consulta expediente
-            </NavLink>
-        </div>
+        <RadzenPanelMenu class="rz-shadow-3">
+            <RadzenPanelMenu class="rz-shadow-3">
+                <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
+                    <RadzenPanelMenuItem Text="Usuarios" Path="Usuario" Icon="account_circle" />
+                    <RadzenPanelMenuItem Text="Expediente" Path="Expediente" Icon="account_circle" />
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem Text="Consultas" Icon="screen_search_desktop">
+                    <RadzenPanelMenuItem Text="Usuarios" Path="Consulta_expediente" Icon="groups" />
+                    <RadzenPanelMenuItem Text="Expedientes" Path="" Icon="groups" />
+                </RadzenPanelMenuItem>
+            </RadzenPanelMenu>
+        </RadzenPanelMenu>
     </nav>
 </div>
 
 @code {
+
+
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
+
     {
         collapseNavMenu = !collapseNavMenu;
+
     }
 }
