@@ -200,29 +200,11 @@
         }
     }
 
-    public async Task<bool> CedulaExiste()
-    {
-        bool paso = false;
-        ListaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
-
-        if (ListaUsuarios.Count == 1)
-        {
-            if (usuario.IdUsuario == 0)
-                return paso = true;
-
-            Usuarios UsuarioTemporal = new Usuarios();
-            UsuarioTemporal = ListaUsuarios[0];
-            if (UsuarioTemporal.IdUsuario != usuario.IdUsuario)
-            {
-                paso = true;
-            }
-        }
-        else if (ListaUsuarios.Count > 1)
-        {
-            paso = true;
-        }
-
-        return paso;
+   public async Task<bool> CedulaExiste()
+    {  
+    var ListaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
+    var existeCedula = ListaUsuarios.FirstOrDefault(u=>u.IdUsuario != usuario.IdUsuario) != null;
+    return existeCedula;
     }
 
     void ShowNotification(NotificationMessage message)
