@@ -1,7 +1,7 @@
 @page "/Usuario"
 @page "/Usuario/{IdUsuario:int}"
 @using Model
-@attribute [Authorize] 
+@attribute [Authorize]
 
 @inject UsuariosBLL usuariosBLL
 @inject NotificationService notificationService
@@ -200,11 +200,11 @@
         }
     }
 
-   public async Task<bool> CedulaExiste()
-    {  
-    var ListaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
-    var existeCedula = ListaUsuarios.FirstOrDefault(u=>u.IdUsuario != usuario.IdUsuario) != null;
-    return existeCedula;
+    public async Task<bool> CedulaExiste()
+    {
+        var ListaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
+        var existeCedula = ListaUsuarios.FirstOrDefault(u => u.IdUsuario != usuario.IdUsuario) != null;
+        return existeCedula;
     }
 
     void ShowNotification(NotificationMessage message)

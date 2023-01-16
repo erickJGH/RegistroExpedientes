@@ -132,7 +132,7 @@
             await this.Buscar();
         }
     }
-    
+
 
     private async Task Buscar()
     {
@@ -213,28 +213,12 @@
 
     public async Task<bool> CedulaORncExiste()
     {
-        bool paso = false;
-        ListaExpedientes = await expedienteBLL.GetList(o => o.CedulaoRnc == expediente.CedulaoRnc);
-
-        if (ListaExpedientes.Count == 1)
-        {
-            if (expediente.IdExpediente == 0)
-                return paso = true;
-
-            Expedientes ExpedienteTemporal = new Expedientes();
-            ExpedienteTemporal = ListaExpedientes[0];
-            if (ExpedienteTemporal.IdExpediente != expediente.IdExpediente)
-            {
-                paso = true;
-            }
-        }
-        else if (ListaExpedientes.Count > 1)
-        {
-            paso = true;
-        }
-
-        return paso;
+        var listaExpedientes = await expedienteBLL.GetList(o => o.CedulaoRnc == expediente.CedulaoRnc);
+        var idExistente = listaExpedientes.FirstOrDefault(x => x.IdExpediente == expediente.IdExpediente);
+        return listaExpedientes.Count > 1 || (listaExpedientes.Count == 1 && idExistente == null);
     }
+
+
 
     void ShowNotification(NotificationMessage message)
     {
