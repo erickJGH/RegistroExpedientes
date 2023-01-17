@@ -114,7 +114,8 @@
 
     protected async override Task OnInitializedAsync()
     {
-        ListaUsuarios = await usuariosBLL.GetList(t => true);
+        var lista = await usuariosBLL.GetList(t => true);
+        ListaUsuarios = lista;
 
         if (IdUsuario > 0)
         {
@@ -122,6 +123,7 @@
             await this.Buscar();
         }
     }
+
     private async Task Buscar()
     {
         if (usuario.IdUsuario > 0)
