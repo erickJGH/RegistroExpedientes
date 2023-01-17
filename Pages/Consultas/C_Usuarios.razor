@@ -75,15 +75,15 @@
                 {
                     <tr>
                         <td>@item.IdUsuario</td>
-                        <td>@item.Descripcionusuario</td>
-                        <td>@item.NombreBeneficiario</td>
-                        <td>@item.ApellidoBeneficiario</td>
-                        <td>@item.CedulaoRnc</td>
-                        <td>@item.Tipousuario</td>
-                        <td>@item.Monto</td>
+                        <td>@item.Departamento</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Apellido</td>
+                        <td>@item.Cedula</td>
+                        <td>@item.Usuario1</td>
+                        <td>@item.Privilegio</td>
                         <td>@item.Estado</td>
-                        <td>@item.FechaDeEntrada</td>
-                        <td><a href="expediente/@item.IdExpediente">Ver</a></td>
+                        <td>@item.Telefono</td>
+                        <td><a href="usuario/@item.IdUsuario">Ver</a></td>
                     </tr>
                 }
             </tbody>
@@ -154,30 +154,20 @@
                         Informacion = await UsuariosBLL.GetList(o => true);
                     }
                     break;
-                case "CedulaoRnc":
+                case "Usuario":
                     if (Criterio != null)
                     {
-                        Informacion = await UsuariosBLL.GetList(e => e.Cedula.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await UsuariosBLL.GetList(e => e.Usuario1.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
                         Informacion = await UsuariosBLL.GetList(o => true);
                     }
                     break;
-                case "TipoExpediente":
+                case "Privilegio":
                     if (Criterio != null)
                     {
-                        Informacion = await UsuariosBLL.GetList(e => e.TipoExpediente.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Monto":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Monto.ToString().Contains(Criterio.ToLower()));
+                        Informacion = await UsuariosBLL.GetList(e => e.Privilegio.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
@@ -187,17 +177,17 @@
                 case "Estado":
                     if (Criterio != null)
                     {
-                        Informacion = await UsuariosBLL.GetList(e => e.Estado.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await UsuariosBLL.GetList(e => e.Estado.ToString().Contains(Criterio.ToLower()));
                     }
                     else
                     {
                         Informacion = await UsuariosBLL.GetList(o => true);
                     }
                     break;
-                case "FechaDeEntrada":
+                case "Telefono":
                     if (Criterio != null)
                     {
-                        Informacion = await UsuariosBLL.GetList(x => (x.FechaDeEntrada >= FechaDesde) && (x.FechaDeEntrada <= FechaHasta));
+                        Informacion = await UsuariosBLL.GetList(e => e.Telefono.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
