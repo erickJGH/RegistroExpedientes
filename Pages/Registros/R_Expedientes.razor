@@ -119,6 +119,11 @@
     public int IdExpediente { get; set; }
     public Expedientes expediente { get; set; } = new Expedientes();
     public String mensaje { get; set; } = "";
+    public void Nuevo()
+    {
+        mensaje = "";
+        expediente = new Expedientes();
+    }
 
     private List<Expedientes> ListaExpedientes { get; set; } = new List<Expedientes>();
 
@@ -154,15 +159,11 @@
         }
     }
 
-    public void Nuevo()
-    {
-        mensaje = "";
-        expediente = new Expedientes();
-    }
 
     public async Task Guardar()
     {
-
+         
+       bool guardo = await expedienteBLL.Guardar(expediente);
         if (await CedulaORncExiste())
         {
             ShowNotification(
@@ -171,22 +172,22 @@
                 Severity = NotificationSeverity.Error,
                 Summary = "Esta Cedula ya existe intente otra."
             });
+        }
+
+       else if (guardo)
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
+
             Nuevo();
         }
-        else if (expediente.IdExpediente == 0)
-        {
-            {
-                await expedienteBLL.Guardar(expediente);
-                ShowNotification(
-                new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Guardado correctamente."
-                });
-                Nuevo();
-            }
-        }
+        
     }
+
     public async Task Eliminar()
     {
         bool elimino;
