@@ -150,29 +150,30 @@
 
     public async Task Guardar()
     {
-        if (await CedulaExiste())
+        bool cedulaExiste = await CedulaExiste();
+        if (cedulaExiste)
         {
-            ShowNotification(
-            new NotificationMessage
+            var notification = new NotificationMessage
             {
                 Severity = NotificationSeverity.Error,
                 Summary = "Esta Cedula ya existe intente otra."
-            });
-            Nuevo();
+            };
+            ShowNotification(notification);
+            return;
         }
-
-        if (usuario.IdUsuario == 0)
+        bool guardo = await usuariosBLL.Guardar(usuario);
+        if (guardo)
         {
-            await usuariosBLL.Guardar(usuario);
-            ShowNotification(
-            new NotificationMessage
+            var notification = new NotificationMessage
             {
                 Severity = NotificationSeverity.Success,
                 Summary = "Guardado correctamente"
-            });
+            };
+            ShowNotification(notification);
             Nuevo();
         }
     }
+
 
     public async Task Eliminar()
     {
