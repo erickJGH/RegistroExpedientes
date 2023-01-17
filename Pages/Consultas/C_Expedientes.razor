@@ -1,15 +1,15 @@
 @page "/Consulta_expediente"
 @using Model
-@inject ExpedienteBLL ExpedienteBLL;
+@inject ExpedientesBLL ExpedientesBLL;
 @attribute [Authorize]
 
 
 <EditForm Model="Informacion">
     <DataAnnotationsValidator />
     <div class="card-body bg-white">
-    <div class="card-header">
-        <h4>Consulta de Expedientes</h4>
-    </div>
+        <div class="card-header">
+            <h4>Consulta de Expedientes</h4>
+        </div>
 
         <div class="input-group">
             @*Fecha*@
@@ -98,7 +98,7 @@
     public Expedientes expedientes { set; get; } = new Expedientes();
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
-    public DateTime FechaDesde { get; set; } 
+    public DateTime FechaDesde { get; set; }
     public DateTime FechaHasta { get; set; } = DateTime.Now;
     public List<Expedientes> Informacion { get; set; } = new List<Expedientes>();
     protected override void OnInitialized()
@@ -112,103 +112,103 @@
             switch (Filtro)
             {
                 case "Todo":
-                    Informacion = await ExpedienteBLL.GetList(e => true);
+                    Informacion = await ExpedientesBLL.GetList(e => true);
                     break;
                 case "IdExpediente":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => o.IdExpediente.ToString() == (Criterio));
+                        Informacion = await ExpedientesBLL.GetList(o => o.IdExpediente.ToString() == (Criterio));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "DescripcionExpediente":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => o.DescripcionExpediente.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(o => o.DescripcionExpediente.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "NombreBeneficiario":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(e => e.NombreBeneficiario.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(e => e.NombreBeneficiario.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "ApellidoBeneficiario":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(e => e.ApellidoBeneficiario.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(e => e.ApellidoBeneficiario.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "CedulaoRnc":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(e => e.CedulaoRnc.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(e => e.CedulaoRnc.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "TipoExpediente":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(e => e.TipoExpediente.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(e => e.TipoExpediente.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "Monto":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(e => e.Monto.ToString().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(e => e.Monto.ToString().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "Estado":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(e => e.Estado.ToLower().Contains(Criterio.ToLower()));
+                        Informacion = await ExpedientesBLL.GetList(e => e.Estado.ToLower().Contains(Criterio.ToLower()));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
                 case "FechaDeEntrada":
                     if (Criterio != null)
                     {
-                        Informacion = await ExpedienteBLL.GetList(x => (x.FechaDeEntrada >= FechaDesde) && (x.FechaDeEntrada <= FechaHasta));
+                        Informacion = await ExpedientesBLL.GetList(x => (x.FechaDeEntrada >= FechaDesde) && (x.FechaDeEntrada <= FechaHasta));
                     }
                     else
                     {
-                        Informacion = await ExpedienteBLL.GetList(o => true);
+                        Informacion = await ExpedientesBLL.GetList(o => true);
                     }
                     break;
             }
         }
         else
         {
-            Informacion = await ExpedienteBLL.GetList(o => true);
+            Informacion = await ExpedientesBLL.GetList(o => true);
         }
     }
 }

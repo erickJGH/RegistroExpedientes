@@ -4,7 +4,7 @@
 @using Model
 @attribute [Authorize]
 
-@inject ExpedienteBLL expedienteBLL
+@inject ExpedientesBLL expedienteBLL
 @inject NotificationService notificationService
 
 <EditForm Model="expediente" OnValidSubmit="Guardar">
@@ -105,9 +105,9 @@
                 <i class="oi oi-document" /> Guardar
             </button>
             @* en caso de quieran eliminar absolutamente(Hasta en la base de datos) aqui esta el boton
-                        <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                        <i class="oi oi-trash" /> Eliminar
-                        </button> *@
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                <i class="oi oi-trash" /> Eliminar
+                </button> *@
         </div>
     </div>
 </EditForm>
