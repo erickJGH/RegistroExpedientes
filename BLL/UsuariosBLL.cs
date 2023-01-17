@@ -99,7 +99,17 @@ public class UsuariosBLL
     {
         return await _contexto.Usuarios.AsNoTracking().Where(Criterio).ToListAsync();
     }
+   
 
+    public async Task<List<Usuarios>> GetPagedList(int pageSize, int pageNumber, Expression<Func<Usuarios, bool>> Criterio)
+    {
+        return await _contexto.Usuarios
+            .AsNoTracking()
+            .Where(Criterio)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
 }
 
 
