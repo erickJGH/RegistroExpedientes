@@ -214,10 +214,11 @@
 
     public async Task<bool> CedulaORncExiste()
     {
-        var listaExpedientes = await expedienteBLL.GetList(o => o.CedulaoRnc == expediente.CedulaoRnc);
-        var idExistente = listaExpedientes.FirstOrDefault(x => x.IdExpediente == expediente.IdExpediente);
-        return listaExpedientes.Count > 1 || (listaExpedientes.Count == 1 && idExistente == null);
+        var expedientesConMismoCedulaORnc = await expedienteBLL.GetList(o => o.CedulaoRnc == expediente.CedulaoRnc);
+        var esOtroExpediente = expedientesConMismoCedulaORnc.Any(x => x.IdExpediente != expediente.IdExpediente);
+        return esOtroExpediente || expedientesConMismoCedulaORnc.Count > 1;
     }
+
 
 
 

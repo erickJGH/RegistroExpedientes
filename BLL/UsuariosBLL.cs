@@ -18,49 +18,45 @@ public class UsuariosBLL
 
     private async Task<bool> Insertar(Usuarios usuario)
     {
-        using (var transaction = _contexto.Database.BeginTransaction())
+        using var transaction = await _contexto.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                _contexto.Usuarios.Add(usuario);
-                var result = await _contexto.SaveChangesAsync();
-                transaction.Commit();
-                return result > 0;
-            }
-            catch (Exception)
-            {
-                transaction.Rollback();
-                throw;
-            }
+            _contexto.Usuarios.Add(usuario);
+            var result = await _contexto.SaveChangesAsync();
+            transaction.Commit();
+            return result > 0;
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+            throw;
         }
     }
 
+
     private async Task<bool> Modificar(Usuarios usuario)
     {
-        using (var transaction = _contexto.Database.BeginTransaction())
+        using var transaction = await _contexto.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                _contexto.Entry(usuario).State = EntityState.Modified;
-                var result = await _contexto.SaveChangesAsync();
-                transaction.Commit();
-                return result > 0;
-            }
-            catch (Exception)
-            {
-                transaction.Rollback();
-                throw;
-            }
+            _contexto.Update(usuario);
+            var result = await _contexto.SaveChangesAsync();
+            transaction.Commit();
+            return result > 0;
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+            throw;
         }
     }
 
     public async Task<bool> Guardar(Usuarios usuario)
     {
-        if (!await Existe(usuario.IdUsuario))
-            return await this.Insertar(usuario);
-        else
-            return await this.Modificar(usuario);
+        return usuario.IdUsuario == 0 ? await Insertar(usuario) : await Modificar(usuario);
     }
+
+
 
     public async Task<bool> Eliminar(Usuarios usuario)
     {
@@ -99,7 +95,7 @@ public class UsuariosBLL
     {
         return await _contexto.Usuarios.AsNoTracking().Where(Criterio).ToListAsync();
     }
-   
+
 }
 
 

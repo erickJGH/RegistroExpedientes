@@ -18,48 +18,42 @@ public class ExpedientesBLL
 
     private async Task<bool> Insertar(Expedientes expediente)
     {
-        using (var transaction = _contexto.Database.BeginTransaction())
+        using var transaction = await _contexto.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                _contexto.Expedientes.Add(expediente);
-                var result = await _contexto.SaveChangesAsync();
-                transaction.Commit();
-                return result > 0;
-            }
-            catch (Exception)
-            {
-                transaction.Rollback();
-                throw;
-            }
+            _contexto.Expedientes.Add(expediente);
+            var result = await _contexto.SaveChangesAsync();
+            transaction.Commit();
+            return result > 0;
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+            throw;
         }
     }
 
+
     private async Task<bool> Modificar(Expedientes expediente)
     {
-        using (var transaction = _contexto.Database.BeginTransaction())
+        using var transaction = await _contexto.Database.BeginTransactionAsync();
+        try
         {
-            try
-            {
-                _contexto.Entry(expediente).State = EntityState.Modified;
-                var result = await _contexto.SaveChangesAsync();
-                transaction.Commit();
-                return result > 0;
-            }
-            catch (Exception)
-            {
-                transaction.Rollback();
-                throw;
-            }
+            _contexto.Update(expediente);
+            var result = await _contexto.SaveChangesAsync();
+            transaction.Commit();
+            return result > 0;
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+            throw;
         }
     }
 
     public async Task<bool> Guardar(Expedientes expediente)
     {
-        if (!await Existe(expediente.IdExpediente))
-            return await this.Insertar(expediente);
-        else
-            return await this.Modificar(expediente);
+        return expediente.IdExpediente == 0 ? await Insertar(expediente) : await Modificar(expediente);
     }
 
     public async Task<bool> Eliminar(Expedientes expediente)
