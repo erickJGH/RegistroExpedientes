@@ -162,8 +162,8 @@
 
     public async Task Guardar()
     {
-        bool cedulaORncExiste = await CedulaORncExiste();
-        if (cedulaORncExiste)
+        
+        if (await CedulaORncExiste())
         {
             var notification = new NotificationMessage
             {
@@ -173,8 +173,8 @@
             ShowNotification(notification);
             return;
         }
-        bool guardo = await expedienteBLL.Guardar(expediente);
-        if (guardo)
+        
+        if (await expedienteBLL.Guardar(expediente))
         {
             var notification = new NotificationMessage
             {
@@ -188,10 +188,7 @@
 
     public async Task Eliminar()
     {
-        bool elimino;
-
-        elimino = await expedienteBLL.Eliminacion(expediente);
-        if (elimino)
+        if (await expedienteBLL.Eliminacion(expediente))
         {
             Nuevo();
             ShowNotification(
