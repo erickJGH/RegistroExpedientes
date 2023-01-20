@@ -98,8 +98,8 @@
     public Expedientes expedientes { set; get; } = new Expedientes();
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
-    public DateTime FechaHasta { get; set; } = DateTime.Now;
-    public DateTime FechaDesde { get; set; }
+    DateTime FechaHasta { get; set; } = DateTime.Now;
+     DateTime FechaDesde { get; set; } = DateTime.Now;
     public List<Expedientes> Informacion { get; set; } = new List<Expedientes>();
     protected override void OnInitialized()
     {
