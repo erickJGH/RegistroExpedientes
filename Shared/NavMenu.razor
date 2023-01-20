@@ -8,20 +8,19 @@
 </div>
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <RadzenPanelMenu class="rz-shadow-3">
-            <RadzenPanelMenu class="rz-shadow-3">
-                <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
-                    <RadzenPanelMenuItem Text="Usuarios" Path="Usuario" Icon="account_circle" />
-                    <RadzenPanelMenuItem Text="Expediente" Path="Expediente" Icon="account_circle" />
-                </RadzenPanelMenuItem>
-                <RadzenPanelMenuItem Text="Consultas" Icon="screen_search_desktop">
-                    <RadzenPanelMenuItem Text="Expedientes" Path="Consulta_expediente" Icon="groups" />
-                    <RadzenPanelMenuItem Text="Usuarios" Path="Consulta_usuarios" Icon="groups" />
-                </RadzenPanelMenuItem>
-            </RadzenPanelMenu>
+        <RadzenPanelMenu>
+            <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
+                <RadzenPanelMenuItem Text="Usuarios" Path="Usuario" Icon="account_circle" />
+                <RadzenPanelMenuItem Text="Expediente" Path="Expediente" Icon="account_circle" />
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Consultas" Icon="screen_search_desktop">
+                <RadzenPanelMenuItem Text="Expedientes" Path="Consulta_expediente" Icon="groups" />
+                <RadzenPanelMenuItem Text="Usuarios" Path="Consulta_usuarios" Icon="groups" />
+            </RadzenPanelMenuItem>
         </RadzenPanelMenu>
     </nav>
 </div>
+
 
 @code {
 

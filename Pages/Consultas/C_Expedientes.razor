@@ -33,7 +33,6 @@
         <div class="col-2 mx-3">
             <div class="row">
                 <select class="form-select" @bind="Filtro">
-                    <option disabled selected>Seleccione</option>
                     <option value="Todo">Todo</option>
                     <option value="IdExpediente">Id Expediente</option>
                     <option value="DescripcionExpediente">Descripcion Expediente</option>
@@ -67,7 +66,7 @@
                     <th>Cedula o Rnc</th>
                     <th>Tipo Expediente</th>
                     <th>Monto</th>
-                    <th>Estado</th>
+                    @* <th>Estado</th> *@
                     <th>Fecha Entrada</th>
                 </tr>
             </thead>

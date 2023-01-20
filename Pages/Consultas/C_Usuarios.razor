@@ -33,7 +33,6 @@
         <div class="col-2 mx-3">
             <div class="row">
                 <select class="form-select" @bind="Filtro">
-                    <option disabled selected>Seleccione</option>
                     <option value="Todo">Todo</option>
                     <option value="IdUsuario">Id Usuarios</option>
                     <option value="Departamento">Departamento</option>
@@ -42,7 +41,7 @@
                     <option value="Cedula">Cedula</option>
                     <option value="Usuario1">Usuario</option>
                     <option value="Privilegio">Privilegio</option>
-                    <option value="Estado">Estado</option>
+                    @* <option value="Estado">Estado</option> *@
                     <option value="Telefono">Telefono</option>
                 </select>
             </div>
@@ -67,7 +66,7 @@
                     <th>Cedula o Rnc</th>
                     <th>Usuario</th>
                     <th>Privilegio</th>
-                    <th>Estado</th>
+                    @* <th>Estado</th> *@
                     <th>Telefono</th>
                 </tr>
             </thead>
@@ -82,7 +81,7 @@
                         <td>@item.Cedula</td>
                         <td>@item.Usuario1</td>
                         <td>@item.Privilegio</td>
-                        <td>@item.Estado</td>
+                        @* <td>@item.Estado</td> *@
                         <td>@item.Telefono</td>
                         <td><a href="usuario/@item.IdUsuario">Ver</a></td>
                     </tr>
@@ -123,7 +122,7 @@
         { "Cedula", e => e.Cedula.ToLower().Contains(Criterio.ToLower()) },
         { "Usuario", e => e.Usuario1.ToLower().Contains(Criterio.ToLower()) },
         { "Privilegio", e => e.Privilegio.ToLower().Contains(Criterio.ToLower()) },
-        { "Estado", e => e.Estado.ToString().Contains(Criterio.ToLower()) },
+        @* { "Estado", e => e.Estado.ToString().Contains(Criterio.ToLower()) }, *@
         { "Telefono", e => e.Telefono.ToLower().Contains(Criterio.ToLower()) },
         };
 
