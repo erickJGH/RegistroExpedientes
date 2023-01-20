@@ -99,13 +99,34 @@
     public string? Filtro { get; set; }
     public string? Criterio { get; set; }
     DateTime FechaHasta { get; set; } = DateTime.Now;
-     DateTime FechaDesde { get; set; } = DateTime.Now;
+    DateTime FechaDesde { get; set; } = DateTime.Now;
     public List<Expedientes> Informacion { get; set; } = new List<Expedientes>();
     protected override void OnInitialized()
     {
         DateTime FechaDesde = FechaHasta.AddMonths(-1);
         base.OnInitialized();
     }
+    private Expression<Func<Expedientes, bool>> _filtroSeleccionado;
+
+    private void SeleccionarFiltro()
+    {
+        var predicates = new Dictionary<string, Expression<Func<Expedientes, bool>>>()
+            {
+            { "Todo", o => true },
+            { "IdExpediente", o => o.IdExpediente.ToString() == Criterio },
+            { "DescripcionExpediente", o => o.DescripcionExpediente.ToLower().Contains(Criterio.ToLower()) },
+            { "NombreBeneficiario", o => o.NombreBeneficiario.ToLower().Contains(Criterio.ToLower()) },
+            { "ApellidoBeneficiario", o => o.ApellidoBeneficiario.ToLower().Contains(Criterio.ToLower()) },
+            { "CedulaoRnc", o => o.CedulaoRnc.ToLower().Contains(Criterio.ToLower()) },
+            { "TipoExpediente", o => o.TipoExpediente.ToLower().Contains(Criterio.ToLower()) },
+            { "Monto", o => o.Monto.ToString().Contains(Criterio.ToLower()) },
+            { "Estado", o => o.Estado.ToLower().Contains(Criterio.ToLower()) },
+            { "FechaDeEntrada", x => (x.FechaDeEntrada >= FechaDesde) && (x.FechaDeEntrada <= FechaHasta) }
+            };
+
+        _filtroSeleccionado = predicates.ContainsKey(Filtro) ? predicates[Filtro] : o => true;
+    }
+
     public async Task Buscar()
     {
         if (Criterio == null)
@@ -113,29 +134,8 @@
             Informacion = await ExpedientesBLL.GetList(o => true);
             return;
         }
-
-        var predicates = new Dictionary<string, Expression<Func<Expedientes, bool>>>()
-        {
-            { "Todo", e => true },
-            { "IdExpediente", o => o.IdExpediente.ToString() == Criterio },
-            { "DescripcionExpediente", o => o.DescripcionExpediente.ToLower().Contains(Criterio.ToLower()) },
-            { "NombreBeneficiario", e => e.NombreBeneficiario.ToLower().Contains(Criterio.ToLower()) },
-            { "ApellidoBeneficiario", e => e.ApellidoBeneficiario.ToLower().Contains(Criterio.ToLower()) },
-            { "CedulaoRnc", e => e.CedulaoRnc.ToLower().Contains(Criterio.ToLower()) },
-            { "TipoExpediente", e => e.TipoExpediente.ToLower().Contains(Criterio.ToLower()) },
-            { "Monto", e => e.Monto.ToString().Contains(Criterio.ToLower()) },
-            { "Estado", e => e.Estado.ToLower().Contains(Criterio.ToLower()) },
-            { "FechaDeEntrada", x => (x.FechaDeEntrada >= FechaDesde) && (x.FechaDeEntrada <= FechaHasta) }
-        };
-
-        if (predicates.ContainsKey(Filtro))
-        {
-            Informacion = await ExpedientesBLL.GetList(predicates[Filtro]);
-        }
-        else
-        {
-            Informacion = await ExpedientesBLL.GetList(e => true);
-        }
+        SeleccionarFiltro();
+        Informacion = await ExpedientesBLL.GetList(_filtroSeleccionado);
     }
 
 }

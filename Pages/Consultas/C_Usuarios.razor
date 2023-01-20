@@ -8,27 +8,27 @@
 <EditForm Model="Informacion">
     <DataAnnotationsValidator />
     <div class="card-body bg-white">
-    <div class="card-header">
-        <h4>Consulta de Usuarios</h4>
-    </div>
+        <div class="card-header">
+            <h4>Consulta de Usuarios</h4>
+        </div>
 
         @* <div class="input-group"> *@
-            @*Fecha*@
-            @* <div class="col-2">
-                <label> Desde</label>
-                <div class="mb-3">
-                    <InputDate @bind-Value="FechaDesde" class="form-control" />
-                    <ValidationMessage For="@(() => FechaDesde)" />
-                </div>
+        @*Fecha*@
+        @* <div class="col-2">
+            <label> Desde</label>
+            <div class="mb-3">
+            <InputDate @bind-Value="FechaDesde" class="form-control" />
+            <ValidationMessage For="@(() => FechaDesde)" />
+            </div>
             </div>
             <div class="col-2 mx-3">
-                <label> Hasta</label>
-                <div class="mb-3">
-                    <InputDate @bind-Value="FechaHasta" class="form-control" />
-                    <ValidationMessage For="@(() => FechaHasta)" />
-                </div>
+            <label> Hasta</label>
+            <div class="mb-3">
+            <InputDate @bind-Value="FechaHasta" class="form-control" />
+            <ValidationMessage For="@(() => FechaHasta)" />
             </div>
-        </div> *@
+            </div>
+            </div> *@
 
         <div class="col-2 mx-3">
             <div class="row">
@@ -103,6 +103,26 @@
     {
         base.OnInitialized();
     }
+    private Expression<Func<Usuarios, bool>> _filtroSeleccionado;
+    
+
+    private void SeleccionarFiltro()
+    {
+        var predicates = new Dictionary<string, Expression<Func<Usuarios, bool>>>()
+        {
+        { "Todo", o => true },
+        { "IdUsuario", o => o.IdUsuario.ToString() == Criterio },
+        { "Nombre", o => o.Nombre.ToLower().Contains(Criterio.ToLower()) },
+        { "Apellido", o => o.Apellido.ToLower().Contains(Criterio.ToLower()) },
+        { "Cedula", o => o.Cedula.ToLower().Contains(Criterio.ToLower()) },
+        { "Usuario", o => o.Usuario1.ToLower().Contains(Criterio.ToLower()) },
+        { "Privilegio", o => o.Privilegio.ToLower().Contains(Criterio.ToLower()) },
+        { "Telefono", o => o.Telefono.ToLower().Contains(Criterio.ToLower()) },
+        };
+
+        _filtroSeleccionado = predicates.ContainsKey(Filtro) ? predicates[Filtro] : o => true;
+    }
+
     public async Task Buscar()
     {
         if (Criterio == null)
@@ -110,28 +130,9 @@
             Informacion = await UsuariosBLL.GetList(o => true);
             return;
         }
-
-        var predicates = new Dictionary<string, Expression<Func<Usuarios, bool>>>()
-        {
-        { "Todo", e => true },
-        { "IdUsuario", o => o.IdUsuario.ToString() == Criterio },
-        { "Nombre", o => o.Nombre.ToLower().Contains(Criterio.ToLower()) },
-        { "Apellido", e => e.Apellido.ToLower().Contains(Criterio.ToLower()) },
-        { "Cedula", e => e.Cedula.ToLower().Contains(Criterio.ToLower()) },
-        { "Usuario", e => e.Usuario1.ToLower().Contains(Criterio.ToLower()) },
-        { "Privilegio", e => e.Privilegio.ToLower().Contains(Criterio.ToLower()) },
-        @* { "Estado", e => e.Estado.ToString().Contains(Criterio.ToLower()) }, *@
-        { "Telefono", e => e.Telefono.ToLower().Contains(Criterio.ToLower()) },
-        };
-
-        if (predicates.ContainsKey(Filtro))
-        {
-            Informacion = await UsuariosBLL.GetList(predicates[Filtro]);
-        }
-        else
-        {
-            Informacion = await UsuariosBLL.GetList(e => true);
-        }
+        SeleccionarFiltro();
+        Informacion = await UsuariosBLL.GetList(_filtroSeleccionado);
     }
+
 
 }

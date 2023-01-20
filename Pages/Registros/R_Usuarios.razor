@@ -114,15 +114,26 @@
 
     protected async override Task OnInitializedAsync()
     {
-        var lista = await usuariosBLL.GetList(t => true);
-        ListaUsuarios = lista;
+        await CargarListaUsuarios();
 
         if (IdUsuario > 0)
         {
-            this.usuario.IdUsuario = IdUsuario;
-            await this.Buscar();
+            await CargarUsuario(IdUsuario);
         }
     }
+
+    private async Task CargarListaUsuarios()
+    {
+        var lista = await usuariosBLL.GetList(t => true);
+        ListaUsuarios = lista;
+    }
+
+    private async Task CargarUsuario(int idUsuario)
+    {
+        this.usuario.IdUsuario = idUsuario;
+        await this.Buscar();
+    }
+
 
     private async Task Buscar()
     {

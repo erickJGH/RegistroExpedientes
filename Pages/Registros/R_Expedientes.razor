@@ -129,14 +129,25 @@
 
     protected async override Task OnInitializedAsync()
     {
-        ListaExpedientes = await expedienteBLL.GetList(t => true);
+        await CargarListaExpedientes();
 
         if (IdExpediente > 0)
         {
-            this.expediente.IdExpediente = IdExpediente;
-            await this.Buscar();
+           await CargarExpediente(IdExpediente);
         }
     }
+
+    private async Task CargarListaExpedientes()
+    {
+        ListaExpedientes = await expedienteBLL.GetList(t => true);
+    }
+
+    private async Task CargarExpediente(int idExpediente)
+    {
+        this.expediente.IdExpediente = idExpediente;
+        await this.Buscar();
+    }
+
 
 
     private async Task Buscar()
