@@ -171,20 +171,26 @@
     }
 
 
+    private bool _existeCedulaORnc;
+
     public async Task Guardar()
     {
-        
-        if (await CedulaORncExiste())
+        if (!_existeCedulaORnc)
         {
-            var notification = new NotificationMessage
+            _existeCedulaORnc = await CedulaORncExiste();
+
+            if (_existeCedulaORnc)
             {
-                Severity = NotificationSeverity.Error,
-                Summary = "Esta Cedula ya existe intente otra."
-            };
-            ShowNotification(notification);
-            return;
+                var notification = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Esta Cedula o Rnc ya existe intente otra."
+                };
+                ShowNotification(notification);
+                return;
+            }
         }
-        
+
         if (await expedienteBLL.Guardar(expediente))
         {
             var notification = new NotificationMessage
@@ -194,8 +200,10 @@
             };
             ShowNotification(notification);
             Nuevo();
+            _existeCedulaORnc = false;
         }
     }
+
 
     public async Task Eliminar()
     {
