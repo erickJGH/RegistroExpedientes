@@ -1,5 +1,6 @@
 @page "/Consulta_usuarios"
 @using Model
+@using System.Linq.Expressions;
 @inject UsuariosBLL UsuariosBLL;
 @attribute [Authorize]
 
@@ -107,98 +108,33 @@
     }
     public async Task Buscar()
     {
-        if (Criterio != null)
+        if (Criterio == null)
         {
-            switch (Filtro)
-            {
-                case "Todo":
-                    Informacion = await UsuariosBLL.GetList(e => true);
-                    break;
-                case "IdUsuario":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => o.IdUsuario.ToString() == (Criterio));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Nombre":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => o.Nombre.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Apellido":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Apellido.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Cedula":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Cedula.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Usuario":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Usuario1.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Privilegio":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Privilegio.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Estado":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Estado.ToString().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-                case "Telefono":
-                    if (Criterio != null)
-                    {
-                        Informacion = await UsuariosBLL.GetList(e => e.Telefono.ToLower().Contains(Criterio.ToLower()));
-                    }
-                    else
-                    {
-                        Informacion = await UsuariosBLL.GetList(o => true);
-                    }
-                    break;
-            }
+            Informacion = await UsuariosBLL.GetList(o => true);
+            return;
+        }
+
+        var predicates = new Dictionary<string, Expression<Func<Usuarios, bool>>>()
+        {
+        { "Todo", e => true },
+        { "IdUsuario", o => o.IdUsuario.ToString() == Criterio },
+        { "Nombre", o => o.Nombre.ToLower().Contains(Criterio.ToLower()) },
+        { "Apellido", e => e.Apellido.ToLower().Contains(Criterio.ToLower()) },
+        { "Cedula", e => e.Cedula.ToLower().Contains(Criterio.ToLower()) },
+        { "Usuario", e => e.Usuario1.ToLower().Contains(Criterio.ToLower()) },
+        { "Privilegio", e => e.Privilegio.ToLower().Contains(Criterio.ToLower()) },
+        { "Estado", e => e.Estado.ToString().Contains(Criterio.ToLower()) },
+        { "Telefono", e => e.Telefono.ToLower().Contains(Criterio.ToLower()) },
+        };
+
+        if (predicates.ContainsKey(Filtro))
+        {
+            Informacion = await UsuariosBLL.GetList(predicates[Filtro]);
         }
         else
         {
-            Informacion = await UsuariosBLL.GetList(o => true);
+            Informacion = await UsuariosBLL.GetList(e => true);
         }
     }
+
 }
