@@ -119,13 +119,13 @@
     public int IdExpediente { get; set; }
     public Expedientes expediente { get; set; } = new Expedientes();
     public String mensaje { get; set; } = "";
+    private static readonly Dictionary<string, int> _cacheCedulasORnc = new Dictionary<string, int>();
+    private List<Expedientes> ListaExpedientes { get; set; } = new List<Expedientes>();
     public void Nuevo()
     {
         mensaje = "";
         expediente = new Expedientes();
     }
-
-    private List<Expedientes> ListaExpedientes { get; set; } = new List<Expedientes>();
 
     protected async override Task OnInitializedAsync()
     {
@@ -226,11 +226,19 @@
 
     public async Task<bool> CedulaORncExiste()
     {
+        if (_cacheCedulasORnc.TryGetValue(expediente.CedulaoRnc, out int countExpedientes))
+        {
+            return countExpedientes > 0;
+        }
+
         var expedientesConMismoCedulaORnc = await expedienteBLL.GetList(o => o.CedulaoRnc == expediente.CedulaoRnc);
-        var countExpedientesConMismoCedulaORnc = expedientesConMismoCedulaORnc.Count(x => x.IdExpediente !=
-        expediente.IdExpediente);
-        return countExpedientesConMismoCedulaORnc > 0;
+        countExpedientes = expedientesConMismoCedulaORnc.Count(x => x.IdExpediente != expediente.IdExpediente);
+
+        _cacheCedulasORnc[expediente.CedulaoRnc] = countExpedientes;
+
+        return countExpedientes > 0;
     }
+
 
 
 

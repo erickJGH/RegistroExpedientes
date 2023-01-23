@@ -111,6 +111,7 @@
     public Usuarios usuario { get; set; } = new Usuarios();
     public String mensaje { get; set; } = "";
     private List<Usuarios> ListaUsuarios { get; set; } = new List<Usuarios>();
+    private static readonly Dictionary<string, bool> _cacheCedulas = new Dictionary<string, bool>();
 
     protected async override Task OnInitializedAsync()
     {
@@ -217,10 +218,20 @@
         }
     }
 
+    
+
     public async Task<bool> CedulaExiste()
     {
+        if (_cacheCedulas.TryGetValue(usuario.Cedula, out bool existeCedula))
+        {
+            return existeCedula;
+        }
+
         var listaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
-        var existeCedula = listaUsuarios.Any(u => u.IdUsuario != usuario.IdUsuario);
+        existeCedula = listaUsuarios.Any(u => u.IdUsuario != usuario.IdUsuario);
+
+        _cacheCedulas[usuario.Cedula] = existeCedula;
+
         return existeCedula;
     }
 
