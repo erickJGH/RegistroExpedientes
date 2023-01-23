@@ -133,7 +133,7 @@
 
         if (IdExpediente > 0)
         {
-           await CargarExpediente(IdExpediente);
+            await CargarExpediente(IdExpediente);
         }
     }
 
@@ -231,9 +231,11 @@
     public async Task<bool> CedulaORncExiste()
     {
         var expedientesConMismoCedulaORnc = await expedienteBLL.GetList(o => o.CedulaoRnc == expediente.CedulaoRnc);
-        var esOtroExpediente = expedientesConMismoCedulaORnc.Any(x => x.IdExpediente != expediente.IdExpediente);
-        return esOtroExpediente || expedientesConMismoCedulaORnc.Count > 1;
+        var countExpedientesConMismoCedulaORnc = expedientesConMismoCedulaORnc.Count(x => x.IdExpediente !=
+        expediente.IdExpediente);
+        return countExpedientesConMismoCedulaORnc > 0;
     }
+
 
 
 
