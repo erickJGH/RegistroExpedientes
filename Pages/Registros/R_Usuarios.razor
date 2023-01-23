@@ -165,22 +165,18 @@
 
     public async Task Guardar()
     {
-        if (!_existeCedula)
+        _existeCedula = await CedulaExiste();
+
+        if (_existeCedula)
         {
-            _existeCedula = await CedulaExiste();
-
-            if (_existeCedula)
+            var notification = new NotificationMessage
             {
-                var notification = new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Esta Cedula ya existe intente otra."
-                };
-                ShowNotification(notification);
-                return;
-            }
+                Severity = NotificationSeverity.Error,
+                Summary = "Esta Cedula ya existe intente otra."
+            };
+            ShowNotification(notification);
+            return;
         }
-
         if (await usuariosBLL.Guardar(usuario))
         {
             var notification = new NotificationMessage
@@ -190,9 +186,9 @@
             };
             ShowNotification(notification);
             Nuevo();
-            _existeCedula = false;
         }
     }
+
 
 
 

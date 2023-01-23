@@ -105,7 +105,7 @@
                 <i class="oi oi-document" /> Guardar
             </button>
             @* en caso de quieran eliminar absolutamente(Hasta en la base de datos) aqui esta el boton *@
-                @* <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+            @* <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
                 <i class="oi oi-trash" /> Eliminar
                 </button> *@
         </div>
@@ -175,22 +175,18 @@
 
     public async Task Guardar()
     {
-        if (!_existeCedulaORnc)
+        _existeCedulaORnc = await CedulaORncExiste();
+
+        if (_existeCedulaORnc)
         {
-            _existeCedulaORnc = await CedulaORncExiste();
-
-            if (_existeCedulaORnc)
+            var notification = new NotificationMessage
             {
-                var notification = new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Esta Cedula o Rnc ya existe intente otra."
-                };
-                ShowNotification(notification);
-                return;
-            }
+                Severity = NotificationSeverity.Error,
+                Summary = "Esta Cedula o Rnc ya existe intente otra."
+            };
+            ShowNotification(notification);
+            return;
         }
-
         if (await expedienteBLL.Guardar(expediente))
         {
             var notification = new NotificationMessage
@@ -200,9 +196,9 @@
             };
             ShowNotification(notification);
             Nuevo();
-            _existeCedulaORnc = false;
         }
     }
+
 
 
     public async Task Eliminar()
