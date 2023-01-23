@@ -199,10 +199,8 @@
 
     public async Task Eliminar()
     {
-        bool elimino;
 
-        elimino = await usuariosBLL.Eliminacion(usuario);
-        if (elimino)
+        if (await usuariosBLL.Eliminacion(usuario))
         {
             Nuevo();
             ShowNotification(
@@ -225,10 +223,11 @@
 
     public async Task<bool> CedulaExiste()
     {
-        var ListaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
-        var existeCedula = ListaUsuarios.FirstOrDefault(u => u.IdUsuario != usuario.IdUsuario) != null;
+        var listaUsuarios = await usuariosBLL.GetList(o => o.Cedula == usuario.Cedula);
+        var existeCedula = listaUsuarios.Any(u => u.IdUsuario != usuario.IdUsuario);
         return existeCedula;
     }
+
 
     void ShowNotification(NotificationMessage message)
     {
