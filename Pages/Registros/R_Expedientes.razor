@@ -148,8 +148,6 @@
         await this.Buscar();
     }
 
-
-
     private async Task Buscar()
     {
         if (expediente.IdExpediente > 0)
@@ -169,7 +167,6 @@
             });
         }
     }
-
 
     private bool _existeCedulaORnc;
 
@@ -198,8 +195,6 @@
             Nuevo();
         }
     }
-
-
 
     public async Task Eliminar()
     {
@@ -238,11 +233,6 @@
 
         return countExpedientes > 0;
     }
-
-
-
-
-
 
     void ShowNotification(NotificationMessage message)
     {

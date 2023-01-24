@@ -112,7 +112,6 @@
     public String mensaje { get; set; } = "";
     private List<Usuarios> ListaUsuarios { get; set; } = new List<Usuarios>();
     private static readonly Dictionary<string, bool> _cacheCedulas = new Dictionary<string, bool>();
-
     protected async override Task OnInitializedAsync()
     {
         await CargarListaUsuarios();
@@ -134,7 +133,6 @@
         this.usuario.IdUsuario = idUsuario;
         await this.Buscar();
     }
-
 
     private async Task Buscar()
     {
@@ -163,7 +161,6 @@
     }
 
     private bool _existeCedula;
-
     public async Task Guardar()
     {
         _existeCedula = await CedulaExiste();
@@ -189,11 +186,6 @@
             Nuevo();
         }
     }
-
-
-
-
-
     public async Task Eliminar()
     {
 
@@ -218,8 +210,6 @@
         }
     }
 
-    
-
     public async Task<bool> CedulaExiste()
     {
         if (_cacheCedulas.TryGetValue(usuario.Cedula, out bool existeCedula))
@@ -234,8 +224,6 @@
 
         return existeCedula;
     }
-
-
     void ShowNotification(NotificationMessage message)
     {
         notificationService.Notify(message);
