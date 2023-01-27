@@ -11,6 +11,7 @@ namespace RegistroExpedientes.Model
     {
         [Key]
         public int IdUsuario { get; set; }
+        [Required(ErrorMessage = "Ingrese Departamento")]
         public string Departamento { get; set; } = null!;
         [Required(ErrorMessage = "Ingrese Nombre")]
         public string Nombre { get; set; } = null!;
