@@ -9,7 +9,10 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <RadzenPanelMenu>
-            <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
+           
+
+            <AuthorizeView Roles="ADMIN">
+                 <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
                 <RadzenPanelMenuItem Text="Usuarios" Path="Usuario" Icon="account_circle" />
                 <RadzenPanelMenuItem Text="Expediente" Path="Expediente" Icon="account_circle" />
             </RadzenPanelMenuItem>
@@ -17,6 +20,17 @@
                 <RadzenPanelMenuItem Text="Expedientes" Path="Consulta_expediente" Icon="groups" />
                 <RadzenPanelMenuItem Text="Usuarios" Path="Consulta_usuarios" Icon="groups" />
             </RadzenPanelMenuItem>
+            </AuthorizeView>
+            <AuthorizeView Roles="USER">
+                 <RadzenPanelMenuItem Text="Registros" Icon="app_registration">
+                
+                <RadzenPanelMenuItem Text="Expediente" Path="Expediente" Icon="account_circle" />
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Consultas" Icon="screen_search_desktop">
+                <RadzenPanelMenuItem Text="Expedientes" Path="Consulta_expediente" Icon="groups" />
+                
+            </RadzenPanelMenuItem>
+            </AuthorizeView>
         </RadzenPanelMenu>
     </nav>
 </div>

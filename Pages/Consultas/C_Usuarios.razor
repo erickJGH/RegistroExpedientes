@@ -2,7 +2,7 @@
 @using Model
 @using System.Linq.Expressions;
 @inject UsuariosBLL UsuariosBLL;
-@attribute [Authorize]
+@attribute [Authorize(Roles = "ADMIN")]
 
 
 <EditForm Model="Informacion">

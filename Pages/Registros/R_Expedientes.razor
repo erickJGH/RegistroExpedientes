@@ -2,7 +2,7 @@
 @page "/Expediente/{IdExpediente:int}"
 @using Microsoft.AspNetCore.Mvc
 @using Model
-@attribute [Authorize]
+@attribute [Authorize(Roles = "ADMIN,USER")]
 
 @inject ExpedientesBLL expedienteBLL
 @inject NotificationService notificationService
